@@ -9,16 +9,6 @@ function printBlockNumberHasTransaction(){
     return transactionsBlock;
 }
 
-function getTransactionsData(array){
-    var transactionsData = new Array();
-    for(var i = 0; i<array.length ; i++){
-	    //console.log(i);
-        var obj = {"transactionIndex":array[i],"data":eth.getTransactionFromBlock(array[i]).input};
-        transactionsData.push(obj);
-    }
-    return transactionsData;
-}
-
 function getAllBlock(){
     var Blocks = new Array();
     for(var i = 0 ; i<=eth.blockNumber ; i++){
@@ -40,27 +30,6 @@ function listUncleBlock(){
     return uncleBlocks;
 }
 
-// function getTransactionDataByIdentification(identification){
-//     for(var i = 0 ; i< identification.length ; i++){
-//         if(identification[i].data.substring(0,10) == "0x11111111"){
-//             console.log("the data is   "+
-//             web3.toAscii(identification[i].data.substring(10))+
-//             "  the block number is   "+
-//             identification[i].transactionIndex);
-//         }
-
-//     }
-// }
-
-// function main(){
-//     getTransactionDataByIdentification(
-//         getTransactionsData(
-//             printBlockNumberHasTransaction()
-//         )
-//     );
-// }
-
-
 function getTransactionDataByIdentification(identification){    
     for(var i = 0 ; i<=eth.blockNumber ; i++){       
         for(var j = 0; j < eth.getBlockTransactionCount(i) ; j++){
@@ -72,4 +41,20 @@ function getTransactionDataByIdentification(identification){
             }           
         }
     }
-}  
+}
+
+function sendTransactionByAccount(sendIndex , receiveIndex , amount , _data ){
+    eth.sendTransaction({from:eth.accounts[sendIndex] , to:eth.accounts[receiveIndex] , value:web3.toWei(amount, "ether") , input:_data});
+}
+
+function sendTransactionByAddress(_form , _to , amount , _data ){
+    eth.sendTransaction({from:_form , to: _to , value: amount , input : _data});
+}
+
+function getAccounts(){    
+    var accounts = eth.accounts;
+    for(var i = 0 ; i<accounts.length ; i++){
+       console.log(accounts[i]);     
+    }
+
+}

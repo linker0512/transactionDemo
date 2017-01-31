@@ -1,6 +1,7 @@
 package tool;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by zj on 2017-1-31.
@@ -11,10 +12,11 @@ public class Cmd {
     private BufferedWriter writer;
     private ProcessBuilder processBuilder;
     private Process process;
+    private ArrayList<String> accounts;
     public Cmd(){
         processBuilder = new ProcessBuilder("geth.exe", "attach");
         processBuilder.redirectErrorStream(true);
-
+        accounts = new ArrayList<String>();
         try {
             process = processBuilder.start();
         } catch (IOException e) {
@@ -22,31 +24,28 @@ public class Cmd {
         }
         reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        LoadScript();
         ReadCmd();
+
+       // GetAccounts();
     }
     private void ReadCmd() {
-        synchronized (this){
-            new Thread(()->{
-                while(true){
-                    try {
-//                        while (reader.read()!=-1) {//缺少第一个字符
-//                            System.out.println(reader.readLine());
-//                        }
-                        for (String line ; (line = reader.readLine()) != null; ) {
-                            System.out.println(line);
+       synchronized (this){
+           new Thread(() ->{
+               try {
+                    for (String line ; ((line = reader.readLine()) != null);){
+                        System.out.println(line);
                         }
-                        Thread.sleep(100);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               //System.out.println("111111111");
+           }).start();
+       }
     }
+
     public void WriteCmd(String command){
-        synchronized (this){
+        synchronized (this) {
             try {
                 writer.write(command);
                 writer.newLine();
@@ -58,5 +57,34 @@ public class Cmd {
     }
     public void LoadScript(){
         WriteCmd("loadScript(\"src/main/resources/getblock.js\")");
+    }
+
+    private ArrayList<String> GetAccounts() {
+        //ArrayList<String> _accounts = new ArrayList<String>();
+        try {
+            writer.write("getAccounts()");
+            writer.newLine();
+            writer.flush();
+            for (String line ; ((line = reader.readLine()) != null)
+                    && (line.length() != 0); ){
+                if(!line.equals("> ") && (!line.equals("undefined")))
+                    accounts.add(line);
+                //System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return accounts;
+    }
+
+    public void SendTransactionByAccount(int sendIndex , int receiveIndex , int amount , String data , String passwd){
+        WriteCmd("personal.unlockAccount("+accounts.get(sendIndex)+","+passwd+", 300)");
+        WriteCmd("sendTransactionByAccount(sendIndex,receiveIndex,amount,data)");
+    }
+
+    public void test(){
+        String a = "personal.unlockAccount("+accounts.get(0)+","+"ethzhangji"+", 300)";
+        accounts.add("123");
+        System.out.println("personal.unlockAccount("+accounts.get(0)+","+"ethzhangji"+", 300)");
     }
 }
