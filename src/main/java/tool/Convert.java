@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class Convert {
     final static String IDENTIFICATION = "0x11111111";
 
-    public static String GetConvertJsonString(Object o){
+    public static String    GetConvertJsonString(Object o){
         try {
             System.out.println(new ObjectMapper().enableDefaultTyping().writeValueAsString(o));
             return new ObjectMapper().enableDefaultTyping().writeValueAsString(o);

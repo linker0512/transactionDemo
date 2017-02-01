@@ -1,3 +1,4 @@
+
 function printBlockNumberHasTransaction(){
     var transactionsBlock = new Array();
     for(var i = 0 ; i<=eth.blockNumber ; i++){
@@ -31,30 +32,50 @@ function listUncleBlock(){
 }
 
 function getTransactionDataByIdentification(identification){    
+    console.log(eth.blockNumber);
     for(var i = 0 ; i<=eth.blockNumber ; i++){       
         for(var j = 0; j < eth.getBlockTransactionCount(i) ; j++){
-            if(eth.getTransactionFromBlock(i,j).input.substring(0,10) == identification){
+            //console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length*2+2)));
+            if(web3.toAscii(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length*2+2)) == identification){
+                //console.log(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length+2));
                 console.log("the data is  "+
-                web3.toAscii(eth.getTransactionFromBlock(i).input.substring(10))+
-                "  the block number is  "+  i +
+                web3.toAscii(eth.getTransactionFromBlock(i).input.substring(identification.length*2+2))+
+                "  the blxock number is  "+  i +
                 "  the transaction index is  " +j);
             }           
         }
     }
+    end();
 }
 
-function sendTransactionByAccount(sendIndex , receiveIndex , amount , _data ){
-    eth.sendTransaction({from:eth.accounts[sendIndex] , to:eth.accounts[receiveIndex] , value:web3.toWei(amount, "ether") , input:_data});
+function sendTransactionByAccount(sendIndex , receiveIndex , amount , data ,identification){
+    eth.sendTransaction(generate(sendIndex , receiveIndex , amount , data ,identification));
+    end();
 }
 
-function sendTransactionByAddress(_form , _to , amount , _data ){
-    eth.sendTransaction({from:_form , to: _to , value: amount , input : _data});
+function generate(sendIndex , receiveIndex , amount , data ,identification){
+    var s = new Object();
+    s.from = eth.accounts[sendIndex];
+    s.to = eth.accounts[receiveIndex];
+    s.value = web3.toWei(amount,"ether");
+    s.data = web3.toHex(identification+data);   
+    return s;
 }
-
-function getAccounts(){    
+function getAccounts(){  
+   
     var accounts = eth.accounts;
     for(var i = 0 ; i<accounts.length ; i++){
        console.log(accounts[i]);     
     }
-
+    end();
+}
+function getBalance(index){
+    console.log(eth.getBalance(eth.accounts[index]));
+    end();
+}
+function end(){
+    console.log("ffffffff"); 
+}
+function begin(){
+    console.log("eeeeeeee"); 
 }
