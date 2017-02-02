@@ -1,0 +1,29 @@
+body {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  background-color: lightblue;
+}
+div{margin:5px;border:0;padding:0;}
+.center {
+    margin: auto;
+    width: 65%;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.container .jumbotron{
+    text-align:center
+}
+input {
+    width: 100%;
+    padding: 3px;
+    margin: 0px;
+}

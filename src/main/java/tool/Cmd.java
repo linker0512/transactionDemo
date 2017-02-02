@@ -119,7 +119,7 @@ public class Cmd {
         ArrayList<String> result = new ArrayList<String>();
         int index = 0;
         for(String s : WriteCmd("getAccounts()").split("\n")){
-            accounts.put(index,new Account(s,WriteCmd("getBalance("+(index++)+")")));
+            accounts.put(index,new Account(index,s,WriteCmd("getBalance("+(index++)+")")));
         }
     }
 
