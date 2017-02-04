@@ -1,11 +1,12 @@
 package tool;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import entity.Account;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import entity.TransactionData;
+import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.*;
@@ -16,25 +17,40 @@ import java.util.stream.Stream;
  * Created by zj on 2017-1-31.
  */
 
-
+@Component
 public class Cmd {
 
+    public static final String UNLOCK_FAIL = "UNLOCK_FAIL";
+    public static final String UNLOCK_SUCCESS = "UNLOCK_SUCCESS";
+    public static final String UNLOCK_FAIL_RETUEN = "Error: could not decrypt key with given passphrase";
+    public static final String ACCOUNT_LOCKED = "Error: account is locked";
+    public static final String ACCOUNT_INSUFFICIENT = "Error: Insufficient funds for gas * price + value";
+    public static final String RE_HEX = "^\"0x[0-9a-fA-F]+\"$";
+
+    private enum State{ NULLSTATE , CREATEACCOUNT , GETTRANSACTION ,
+        SENDTRANSACTION , UNLOCKACCOUNT , GETACCOUNTS , GETBALANCE};
+    private State state;
     private final String BEGIN = "eeeeeeee";
     private final String END = "ffffffff";
     private final String END_COMMAND = "end();";
-    private final String RE_HEX = "^\"0x[0-9a-fA-F]+\"$";
     private BufferedReader reader;
     private BufferedWriter writer;
     private ProcessBuilder processBuilder;
     private Process process;
-//    private ArrayList<String> accounts;
-    @Setter private HashMap<Integer, Account> accounts;
+
+    @Getter private ArrayList<Account> accounts;
+    @Getter private ArrayList<TransactionData> transactions;
+    private int accounts_count;
     private int lineCount;
+
     public Cmd() {
         processBuilder = new ProcessBuilder("geth.exe", "attach");
         processBuilder.redirectErrorStream(true);
-        accounts = new HashMap<Integer, Account>();
+        accounts = new ArrayList<Account>();
+
         lineCount = 0;
+        accounts_count = 0;
+        state = State.NULLSTATE;
         try {
             process = processBuilder.start();
         } catch (IOException e) {
@@ -59,41 +75,117 @@ public class Cmd {
         _GetAccounts();
     }
 
-    public HashMap<Integer, Account> getAccounts() {
-        return accounts;
-    }
-
-    private String ReadCmd() {
-        StringBuilder sb = new StringBuilder();
+    private String ReadCmd(){
+        StringBuffer sb = new StringBuffer();
         try {
-            for (String line ; (line = reader.readLine()) != null; ) {
-                if(line.equals(END)){
+            switch (state){
+                case NULLSTATE:
                     break;
-                }else if(line.equals("undefined") || line.equals("> ")){
-                   ;
-                }else if(line.contains("ReferenceError:") || line.contains("Error:")) {
-                    System.out.println("error");
-                    WriteCmdNoReturn(END_COMMAND);
-                }else if(line.matches(RE_HEX)){
-                    if(line.length() == 68)
-                        System.out.println("this is a block or transaction address");
-                    else if(line.length() == 44)
-                        System.out.println("this is a account address");
-                    System.out.println(line);
-                    WriteCmdNoReturn(END_COMMAND);
-                }else if(line.equals("true")){
-                    System.out.println("ok");
-                    WriteCmdNoReturn(END_COMMAND);
-                }else{
-                    System.out.println(line);
-                    sb.append(line+'\n');
-                }
+                case CREATEACCOUNT:
+                    state = State.NULLSTATE;
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)){
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else {
+                            System.out.println("address");
+                            state = State.NULLSTATE;
+                            return line.substring(1,43);
+                        }
+                    }
+                    break;
+                case UNLOCKACCOUNT:
+                    state = State.NULLSTATE;
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)){
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else if(line.contains("Error:")){
+                            System.out.println("passwd error");
+                            return UNLOCK_FAIL;
+                        }
+                        else {
+                            System.out.println("unlock");
+                            return UNLOCK_SUCCESS;
+                        }
+                    }
+                    break;
+                case GETTRANSACTION:
+                    state = State.NULLSTATE;
+                    transactions = new ArrayList<TransactionData>();
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)) {
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else{
+                            System.out.println(line);
+                            transactions.add(new TransactionData(line,reader.readLine(),reader.readLine()));
+                        }
+                    }
+                    return null;
+
+                case SENDTRANSACTION:
+                    state = State.NULLSTATE;
+                    Clear();
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)){
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else if(line.contains(ACCOUNT_LOCKED)){
+                            System.out.println("account unlock");
+                            WriteCmdNoReturn(END_COMMAND);
+                            Clear();
+                            return ACCOUNT_LOCKED;
+                        }else if(line.contains(ACCOUNT_INSUFFICIENT)){
+                            System.out.println("insufficient money");
+                            WriteCmdNoReturn(END_COMMAND);
+                            Clear();
+                            return ACCOUNT_INSUFFICIENT;
+                        }
+                        else if(line.matches(RE_HEX)){
+                            System.out.println("send ok");
+                            System.out.println(line);
+                            return line;
+                        }else{
+                            ;
+                        }
+                    }
+                    break;
+                case GETACCOUNTS:
+                    state = State.NULLSTATE;
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)){
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else {
+                            sb.append(line+"\n");
+                        }
+                    }
+                    return sb.toString();
+                case GETBALANCE:
+                    state = State.NULLSTATE;
+                    for (String line ; (line = reader.readLine()) != null; ){
+                        if(line.contains(END)){
+                            break;
+                        }else if(line.equals("undefined") || line.equals("> ")){
+                            ;
+                        }else if(line.matches("\\d*")){
+                            return line;
+                        }else {
+                            ;
+                        }
+                    }
+                    return null;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
-       return sb.toString();
+        return null;
     }
 
     public String WriteCmd(String command){
@@ -101,6 +193,18 @@ public class Cmd {
         return ReadCmd();
     }
 
+    private void Clear(){
+        try {
+            for (String line ; (line = reader.readLine()) != null;){
+                System.out.println(line);
+                if(line.contains(END)) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void WriteCmdNoReturn(String command){
         try {
             writer.write(command);
@@ -111,59 +215,39 @@ public class Cmd {
         }
 
     }
-    public void LoadScript(){
+    private void LoadScript(){
         WriteCmdNoReturn("loadScript(\"src/main/resources/getblock.js\")");
     }
 
-    private void _GetAccounts() {
-        ArrayList<String> result = new ArrayList<String>();
-        int index = 0;
+    public void _GetAccounts() {
+        state = State.GETACCOUNTS;
+        accounts_count = 0;
+        accounts = new ArrayList<Account>();
         for(String s : WriteCmd("getAccounts()").split("\n")){
-            accounts.put(index,new Account(index,s,WriteCmd("getBalance("+(index++)+")")));
+            state = State.GETBALANCE;
+            accounts.add(new Account(accounts_count,s,WriteCmd("getBalance("+( accounts_count++)+")")));
         }
     }
 
-    public void SendTransactionByAccount(int sendIndex , int receiveIndex , int amount , String data , String identification){
-        //System.out.println("s = generate("+sendIndex+","+receiveIndex+","+amount+",\""+data+"\",\""+identification+"\")");
-        WriteCmd("s = generate("+sendIndex+","+receiveIndex+","+amount+",\""+data+"\",\""+identification+"\")");
-        WriteCmd("eth.sendTransaction(s)");
-        //WriteCmd(END_COMMAND);
-
-//        WriteCmd("sendTransactionByAccount(sendIndex,receiveIndex,amount,data)");
+    public String SendTransactionByAccount(int sendIndex , int receiveIndex , int amount , String data , String identification){
+        state = State.SENDTRANSACTION;
+        WriteCmdNoReturn("s = generate("+sendIndex+","+receiveIndex+","+amount+",\""+data+"\",\""+identification+"\")");
+        return WriteCmd("eth.sendTransaction(s)");
     }
-    public void CreateAccuont(String passwd){
-//        System.out.println("personal.newAccount(\""+passwd+"\")");
-        WriteCmd("personal.newAccount(\""+passwd+"\")");
+    public String CreateAccuont(String passwd){
+        state = State.CREATEACCOUNT;
+        return(WriteCmd("personal.newAccount(\""+passwd+"\")"));
     }
 
-    public void UnlockAccount(int account , String passwd , int length){
-//        System.out.println("personal.unlockAccount(\"" + accounts.get(account) + "\",\"" + passwd + "\"," + 300 + ")");
-        WriteCmd("personal.unlockAccount(\""+accounts.get(account)+"\",\""+passwd+"\","+ 300+")");
-
+    public String UnlockAccount(int account , String passwd , int length){
+        state = State.UNLOCKACCOUNT;
+        if(account > accounts_count)
+            return UNLOCK_FAIL_RETUEN;
+        return(WriteCmd("personal.unlockAccount(\""+accounts.get(account).getAddress()+"\",\""+passwd+"\","+ length+")"));
     }
     public void GetTransactionDataByIdentification(String identification){
+        state = State.GETTRANSACTION;
         WriteCmd("getTransactionDataByIdentification(\""+identification+"\")");
     }
-//    public void GetBalance
-
-//    成基本交互，包含创建用户，解锁用户，交易，获取特定特征码交易的数据，获取账户
-//    private abstract class CmdReader{
-//        public String ReadCmd(){
-//            StringBuilder sb = new StringBuilder();
-//            try {
-//                for (String line ; (line = reader.readLine()) != null; ){
-//                    if(line.equals(END)){
-//                        break;
-//                    }else (line.equals("undefined") || line.equals("> ")){
-//                        ;
-//                    }
-//                    DiffCmd();
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        protected abstract void DiffCmd();
-//    }
 
 }

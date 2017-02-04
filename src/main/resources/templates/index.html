@@ -26,6 +26,27 @@
     </div>
     <div class = "center">
         <div class="w3-container">
+
+            <div id = "CREATEACCOUNT">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 align="center">创建用户</h2>
+                    </div>
+                </div>
+                <form style="padding-up:20px"  enctype="text/plain">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr  class="warning">
+                            <td  style="text-align:center;"><p><font size="4" face="arial" color="black">用户密码</font></p></td>
+                            <td><input width="100%" type="text" id="createAccountPasswd" name="createAccountPasswd"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id = "resultCreateAccount"></div>
+                    <button type="button"  onclick="createAccount()"  class="btn btn-success pull-right" >注册</button>
+                </form>
+            </div>
+            <br></br><br></br>
             <!--查询账户信息-->
             <div id = "ACCOUNTS">
                     <div class="panel panel-primary">
@@ -38,7 +59,7 @@
                     <button type="button"  onclick="getAccounts()"  class="btn btn-success pull-right" >获取账户信息</button>
                 </form>
             </div>
-            <br></br><br></br><br></br>
+            <br></br><br></br>
 
             <div id = "UNLOCK">
                 <div class="panel panel-primary">
@@ -57,7 +78,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr  class="danger">
+                            <tr  class="warning">
                                 <td><input width="100%" type="text" id="accountIndex" name="accountIndex"/></td>
                                 <td><input width="100%" type="password" id="unlockpasswd" name="unlockpasswd"/></td>
                                 <td><input width="100%" type="text" id="length" name="length"/></td>
@@ -68,6 +89,59 @@
                     <button type="button"  onclick="unlockAccount()" class="btn btn-success pull-right" >解锁账户</button>
                 </form>
             </div>
+            <br></br><br></br>
+            <div id = "TRANSACTION">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 align="center">发送交易</h2>
+                        </div>
+                    </div>
+                <form style="padding-up:20px"  enctype="text/plain">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th  style="text-align:center;">Send Index</th>
+                                <th  style="text-align:center;">SendReceive Index</th>
+                                <th  style="text-align:center;">Amount</th>
+                                <th  style="text-align:center;">Data</th>
+                                <th  style="text-align:center;">Identification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  class="warning">
+                                <td><input width="100%" type="text" id="sendIndex" name="sendIndex"/></td>
+                                <td><input width="100%" type="text" id="receiveIndex" name="receiveIndex"/></td>
+                                <td><input width="100%" type="text" id="sendAmount" name="sendAmount"/></td>
+                                <td><input width="100%" type="text" id="sendData" name="sendData"/></td>
+                                <td><input width="100%" type="text" id="sendIdentification" name="sendIdentification"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <div id = "resultTransaction"></div>
+                    <button type="button"  onclick="sendTransaction()"  class="btn btn-success pull-right" >发送交易</button>
+                </form>
+            </div>
+            <br></br><br></br>
+            <div id = "GETTRANSACTION">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 align="center">查询交易信息</h2>
+                    </div>
+                </div>
+                <form style="padding-up:20px"  enctype="text/plain">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr  class="warning">
+                            <td  style="text-align:center;"><p><font size="4" face="arial" color="black">查询关键字</font></p></td>
+                            <td><input width="100%" type="text" id="identification" name="identification"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id = "resultGetTransaction"></div>
+                    <button type="button"  onclick="getTransaction()"  class="btn btn-success pull-right" >获取交易信息</button>
+                </form>
+            </div>
+            <br></br><br/>
         </div>
     </div>
 </div>

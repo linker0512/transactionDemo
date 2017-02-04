@@ -31,17 +31,18 @@ function listUncleBlock(){
     return uncleBlocks;
 }
 
-function getTransactionDataByIdentification(identification){    
-    console.log(eth.blockNumber);
-    for(var i = 0 ; i<=eth.blockNumber ; i++){       
+function getTransactionDataByIdentification(identification){
+    for(var i = 0 ; i<=eth.blockNumber ; i++){
         for(var j = 0; j < eth.getBlockTransactionCount(i) ; j++){
-            //console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length*2+2)));
-            if(web3.toAscii(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length*2+2)) == identification){
-                //console.log(eth.getTransactionFromBlock(i,j).input.substring(2,identification.length+2));
-                console.log("the data is  "+
-                web3.toAscii(eth.getTransactionFromBlock(i).input.substring(identification.length*2+2))+
-                "  the blxock number is  "+  i +
-                "  the transaction index is  " +j);
+//        console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input));
+            if(web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(0,identification.length) == identification){
+//                console.log("the data is  "+
+//                web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(identification.length)+
+//                "  the block number is  "+  i +
+//                "  the transaction index is  " +j);
+                console.log(i);
+                console.log(j);
+                console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(identification.length));
             }           
         }
     }
@@ -49,7 +50,8 @@ function getTransactionDataByIdentification(identification){
 }
 
 function sendTransactionByAccount(sendIndex , receiveIndex , amount , data ,identification){
-    eth.sendTransaction(generate(sendIndex , receiveIndex , amount , data ,identification));
+    //var s = generate(sendIndex , receiveIndex , amount , data ,identification)
+    eth.sendTransaction(s);
     end();
 }
 
@@ -58,7 +60,10 @@ function generate(sendIndex , receiveIndex , amount , data ,identification){
     s.from = eth.accounts[sendIndex];
     s.to = eth.accounts[receiveIndex];
     s.value = web3.toWei(amount,"ether");
-    s.data = web3.toHex(identification+data);   
+    s.data = web3.toHex(identification+data);
+//    setTimeout(function(){console.log("ffffffff");
+//    },100);
+    end();
     return s;
 }
 function getAccounts(){  
@@ -71,7 +76,7 @@ function getAccounts(){
 }
 function getBalance(index){
     console.log(eth.getBalance(eth.accounts[index]));
-    end();
+
 }
 function end(){
     console.log("ffffffff"); 

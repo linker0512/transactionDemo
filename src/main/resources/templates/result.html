@@ -12,9 +12,28 @@
         />
     </head>
     <body>
-        <div th:fragment="resultsAccounts" class="results-Accountblock">
-            <table class="table table-bordered">
 
+        <div th:fragment="resultCreateAccount" class="results-CreateAccount">
+            <div th:switch="${TYPE}">
+                <div th:case="'SUCCESS'">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${CREATEACCOUNT}"/>
+                        </div>
+                    </div>
+                </div>
+                <div th:case="'FAIL'">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${CREATEACCOUNT}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:fragment="resultAccounts" class="results-Accountblock">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th  style="text-align:center;">Index</th>
@@ -22,7 +41,6 @@
                     <th  style="text-align:center;">Account Balance</th>
                 </tr>
                 </thead>
-            <!--账户表格-->
                 <tbody>
                     <tr th:each = "account : ${Accounts}" class="success">
                         <td width="10%" th:text = "${account.index}"></td>
@@ -33,8 +51,72 @@
             </table>
         </div>
 
-        <div th:fragment="resultsUnlock" class="results-Unlockblock">
+        <div th:fragment="resultUnlock" class="results-Unlockblock">
+            <div th:switch="${TYPE}">
+                <div th:case="'SUCCESS'">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${UNLOCK}"/>
+                        </div>
+                    </div>
+                </div>
+                  <div th:case="'FAIL'">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${UNLOCK}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+         <div th:fragment="resultTransaction" class="results-Transactionblock">
+            <div th:switch="${TYPE}">
+                <div th:case="'SUCCESS'">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${TRANSCATION}"/>
+                        </div>
+                    </div>
+                </div>
+                  <div th:case="'FAIL'">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${TRANSCATION}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:fragment="resultGetTransaction" class="results-GetTransactionblock">
+            <div th:switch="${TYPE}">
+                <div th:case="'SUCCESS'">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th  style="text-align:center;">Block Number</th>
+                            <th  style="text-align:center;">Block Index</th>
+                            <th  style="text-align:center;">Block Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each = "transaction : ${GETTRANSACTION}" class="success">
+                            <td width="20%" th:text = "${transaction.transactionBlock}"></td>
+                            <td width="20%" th:text = "${transaction.transactionIndex}"></td>
+                            <td width="60%" th:text = "${transaction.transactionData}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:case="'FAIL'">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h4 align="center" th:text="${GETTRANSACTION}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

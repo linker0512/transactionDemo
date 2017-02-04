@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class Convert {
     final static String IDENTIFICATION = "0x11111111";
 
-    public static String    GetConvertJsonString(Object o){
+    public static String GetConvertJsonString(Object o){
         try {
             System.out.println(new ObjectMapper().enableDefaultTyping().writeValueAsString(o));
             return new ObjectMapper().enableDefaultTyping().writeValueAsString(o);
@@ -40,7 +40,6 @@ public class Convert {
 
     }
     public static Object ConvertHexStringToObject(String hex , Class type){
-
         hex = hex.substring(10);
         List<String> strings = new ArrayList<String>();
         for(int i = 0 ; i <hex.length() ; i=i+2){
@@ -56,6 +55,8 @@ public class Convert {
             e.printStackTrace();
             return null;
         }
-
+    }
+    public static String ConvertStringTohex(String s){
+        return "0x"+s.chars().mapToObj(n -> Integer.toHexString(n)).collect(Collectors.joining());
     }
 }
