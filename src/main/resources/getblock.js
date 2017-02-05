@@ -34,7 +34,7 @@ function listUncleBlock(){
 function getTransactionDataByIdentification(identification){
     for(var i = 0 ; i<=eth.blockNumber ; i++){
         for(var j = 0; j < eth.getBlockTransactionCount(i) ; j++){
-//        console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input));
+//        console.log(i);
             if(web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(0,identification.length) == identification){
 //                console.log("the data is  "+
 //                web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(identification.length)+

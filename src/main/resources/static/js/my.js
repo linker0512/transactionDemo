@@ -3,66 +3,44 @@ function getAccounts(){
 }
 
 function unlockAccount(){
-    var url = Url('/unlock');
-     //console.log(url);
-    url.connect($('#accountIndex')).connect($('#unlockpasswd')).connect($('#length'));
-    console.log(url);
-    if(url.count == 3){
-        $("#resultUnlock").load(url.u);
-        console.log(true);
-    }
-    else
-        $("#resultUnlock").load("/error/unlock");
+    new Url('/unlock',$("#resultUnlock")).
+    start($('#accountIndex'),$('#unlockpasswd'),$('#length'));
 }
 
 function sendTransaction(){
-    var url = Url('/transaction');
-    url.connect($('#sendIndex')).connect($('#receiveIndex')).connect($('#sendAmount'))
-        .connect($('#sendData')).connect($('#sendIdentification'));
-//        console.log(url);
-    if(url.count == 5){
-        $("#resultTransaction").load(url.u);
-//        console.log(true);
-    }
-    else
-        $("#resultTransaction").load("/error/transaction");
-   
+    new Url('/transaction',$("#resultTransaction")).
+    start($('#sendIndex'),$('#receiveIndex'),$('#sendAmount'),$('#sendData'),$('#sendIdentification'));
 }
 
 function getTransaction(){
-    var url = Url('/getTransaction');
-    console.log(url.u);
-    url.connect($('#identification'));
-    console.log(url.u);
-    if(url.count == 1){
-        $("#resultGetTransaction").load(url.u);
-        console.log(true);
-    }
-    else
-        $("#resultGetTransaction").load("/error/getTransaction");
+    new Url('/getTransaction',$("#resultGetTransaction"))
+    .start($('#identification'));
 }
 
 function createAccount(){
-    var url = Url('/createAccount');
-    url.connect($('#createAccountPasswd'));
-    if(url.count == 1){
-        $("#resultCreateAccount").load(url.u);
-        console.log(true);
-        }
-    else
-        $("#resultCreateAccount").load("/error/createAccount");
+    new Url('/createAccount',$("#resultCreateAccount"))
+    .start($('#createAccountPasswd'));
 }
 
-function Url(u){
+function Url(u,id){
     var url = new Object();
     url.u = u;
+    url.id = u;
+    url.exeid = id
     url.count = 0;
-    url.connect = function(ob){
-        if(ob.val() != ''){
-            url.u = url.u + '/' + ob.val();
-            url.count++;
-        }
-        return url;
+    url.start = function(){
+        for(var i = 0 ; i<arguments.length ; i++)
+            if(arguments[i].val() != ''){
+                url.u = url.u + '/' + arguments[i].val();
+                url.count++;
+            }
+            if(url.count == arguments.length){
+                url.exeid.load(url.u);
+            }else{
+                url.exeid.load("/error"+url.id);
+            }
     };
     return url;
 }
+
+

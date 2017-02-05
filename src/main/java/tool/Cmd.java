@@ -25,7 +25,8 @@ public class Cmd {
     public static final String UNLOCK_FAIL_RETUEN = "Error: could not decrypt key with given passphrase";
     public static final String ACCOUNT_LOCKED = "Error: account is locked";
     public static final String ACCOUNT_INSUFFICIENT = "Error: Insufficient funds for gas * price + value";
-    public static final String RE_HEX = "^\"0x[0-9a-fA-F]+\"$";
+    public static final String RE_HEX_STRING = "^\"0x[0-9a-fA-F]+\"$";
+    public static final String RE_HEX = "^0x[0-9a-fA-F]+$";
 
     private enum State{ NULLSTATE , CREATEACCOUNT , GETTRANSACTION ,
         SENDTRANSACTION , UNLOCKACCOUNT , GETACCOUNTS , GETBALANCE};
@@ -60,17 +61,10 @@ public class Cmd {
         writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
 
         LoadScript();
+        WriteCmdNoReturn(END_COMMAND);
+        Clear();
        ///////以上调用WriteCmdNoReturn
-        try {
-            for (String line; (line = reader.readLine()) != null; ){
-                System.out.println(line);
-                lineCount++;
-                if(lineCount == 10)
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         ////////以下调用WriteCmd
         _GetAccounts();
     }
@@ -90,7 +84,6 @@ public class Cmd {
                             ;
                         }else {
                             System.out.println("address");
-                            state = State.NULLSTATE;
                             return line.substring(1,43);
                         }
                     }
@@ -114,6 +107,8 @@ public class Cmd {
                     break;
                 case GETTRANSACTION:
                     state = State.NULLSTATE;
+//                    WriteCmdNoReturn(END_COMMAND);
+//                    Clear();
                     transactions = new ArrayList<TransactionData>();
                     for (String line ; (line = reader.readLine()) != null; ){
                         if(line.contains(END)) {
@@ -121,7 +116,7 @@ public class Cmd {
                         }else if(line.equals("undefined") || line.equals("> ")){
                             ;
                         }else{
-                            System.out.println(line);
+                            System.out.println("GETTRANSACTION");
                             transactions.add(new TransactionData(line,reader.readLine(),reader.readLine()));
                         }
                     }
@@ -146,7 +141,7 @@ public class Cmd {
                             Clear();
                             return ACCOUNT_INSUFFICIENT;
                         }
-                        else if(line.matches(RE_HEX)){
+                        else if(line.matches(RE_HEX_STRING)){
                             System.out.println("send ok");
                             System.out.println(line);
                             return line;
@@ -166,6 +161,7 @@ public class Cmd {
                             sb.append(line+"\n");
                         }
                     }
+                    System.out.println("GETACCOUNTS");
                     return sb.toString();
                 case GETBALANCE:
                     state = State.NULLSTATE;
@@ -175,6 +171,7 @@ public class Cmd {
                         }else if(line.equals("undefined") || line.equals("> ")){
                             ;
                         }else if(line.matches("\\d*")){
+//                            System.out.println("GETBALANCE");
                             return line;
                         }else {
                             ;
@@ -188,7 +185,7 @@ public class Cmd {
         return null;
     }
 
-    public String WriteCmd(String command){
+    private String WriteCmd(String command){
         WriteCmdNoReturn(command);
         return ReadCmd();
     }

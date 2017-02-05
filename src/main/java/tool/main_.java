@@ -28,8 +28,10 @@ public class main_ {
 //        System.out.println(testClass1.equals(testClass2));
 //        System.out.println("21321321321".matches("\\d+"));
         Cmd cmd = new Cmd();
-        cmd.GetTransactionDataByIdentification("^^^^^^9^^");
-        cmd.getTransactions().forEach(System.out::println);
+        cmd.CreateAccuont("1");
+        cmd.UnlockAccount(0,"1",3);
+        cmd.GetTransactionDataByIdentification("^^^^^^^^");
+//        cmd.getTransactions().forEach(System.out::println);
 //        System.out.println("\"0xba3ce47b92eefa36e5535f21826cff4a90c3d2ae\"".length());
 //        cmd.WriteCmdNoReturn("end();");
 //        cmd.Clear();

@@ -16,16 +16,18 @@
         <div th:fragment="resultCreateAccount" class="results-CreateAccount">
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
+                    <h4 name = "result"  hidden = "true" >OK</h4>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h4 align="center" th:text="${CREATEACCOUNT}"/>
+                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
                         </div>
                     </div>
                 </div>
                 <div th:case="'FAIL'">
+                    <h4 name = "result"  hidden = "true" >FAIL</h4>
                     <div class="panel panel-danger">
                         <div class="panel-heading">
-                            <h4 align="center" th:text="${CREATEACCOUNT}"/>
+                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
                         </div>
                     </div>
                 </div>
@@ -33,6 +35,7 @@
         </div>
 
         <div th:fragment="resultAccounts" class="results-Accountblock">
+            <h4 name = "result"  hidden = "true" >OK</h4>
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -54,6 +57,7 @@
         <div th:fragment="resultUnlock" class="results-Unlockblock">
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
+                    <h4 name = "result"  hidden = "true" >OK</h4>
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h4 align="center" th:text="${UNLOCK}"/>
@@ -61,6 +65,7 @@
                     </div>
                 </div>
                   <div th:case="'FAIL'">
+                      <h4 name = "result"  hidden = "true" >FAIL</h4>
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             <h4 align="center" th:text="${UNLOCK}"/>
@@ -73,16 +78,18 @@
          <div th:fragment="resultTransaction" class="results-Transactionblock">
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
+                    <h4 name = "result"  hidden = "true" >OK</h4>
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                            <h4 align="center" th:text="${TRANSCATION}"/>
+                            <h4  align="center" th:text="${TRANSCATION}"/>
                         </div>
                     </div>
                 </div>
                   <div th:case="'FAIL'">
+                      <h4 name = "result"  hidden = "true" >FAIL</h4>
                     <div class="panel panel-danger">
                         <div class="panel-heading">
-                            <h4 align="center" th:text="${TRANSCATION}"/>
+                            <h4  align="center" th:text="${TRANSCATION}"/>
                         </div>
                     </div>
                 </div>
@@ -92,6 +99,7 @@
         <div th:fragment="resultGetTransaction" class="results-GetTransactionblock">
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
+                    <h4 name = "result"  hidden = "true" >OK</h4>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -110,6 +118,7 @@
                     </table>
                 </div>
                 <div th:case="'FAIL'">
+                    <h4 name = "result"  hidden = "true" >FAIL</h4>
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             <h4 align="center" th:text="${GETTRANSACTION}"/>

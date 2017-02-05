@@ -68,7 +68,12 @@ public class CmdControllor {
                                   @PathVariable String sendData , @PathVariable String sendIdentification){
         if(!sendIndex.matches("\\d+") || !receiveIndex.matches("\\d+") || !sendAmount.matches("\\d+")){
             model.addAttribute("TYPE","FAIL");
-            model.addAttribute("UNLOCK","Account Index  or Length Identification or must be number");
+            model.addAttribute("TRANSCATION","Account Index  or Length Identification or must be number");
+            return "result :: resultTransaction";
+        }
+        if(sendIdentification.length() != 8){
+            model.addAttribute("TYPE","FAIL");
+            model.addAttribute("TRANSCATION","Identification'length must be 8");
             return "result :: resultTransaction";
         }
         try {
@@ -78,7 +83,7 @@ public class CmdControllor {
                 model.addAttribute("TYPE","FAIL");
                 model.addAttribute("TRANSCATION",Cmd.ACCOUNT_LOCKED);
             }
-            else if(result.matches(Cmd.RE_HEX)){
+            else if(result.matches(Cmd.RE_HEX_STRING)){
                 model.addAttribute("TYPE","SUCCESS");
                 model.addAttribute("TRANSCATION",result);
                 System.out.println("333333333333");
@@ -89,7 +94,7 @@ public class CmdControllor {
             }
         }catch (NumberFormatException e){
             model.addAttribute("TYPE","FAIL");
-            model.addAttribute("TRANSCATION","Amount is Int");
+            model.addAttribute("TRANSCATION","Amount is 32 bits");
         }
         return "result :: resultTransaction";
     }
@@ -110,23 +115,18 @@ public class CmdControllor {
 
     @RequestMapping("/error/{type}")
     public String Error(Model model , @PathVariable String type){
+        model.addAttribute("TYPE","FAIL");
         switch(type){
             case "unlock":
-                model.addAttribute("TYPE","FAIL");
                 model.addAttribute("UNLOCK","miss token");
                 return "result :: resultUnlock";
             case "transaction":
-                System.out.println("3333333333");
-                model.addAttribute("TYPE","FAIL");
                 model.addAttribute("TRANSCATION","miss token");
                 return "result :: resultTransaction";
             case "getTransaction":
-                System.out.println("444444444444");
-                model.addAttribute("TYPE","FAIL");
                 model.addAttribute("GETTRANSACTION","miss token");
                 return "result :: resultGetTransaction";
             case "createAccount":
-                model.addAttribute("TYPE","FAIL");
                 model.addAttribute("CREATEACCOUNT","miss token");
                 return "result :: resultCreateAccount";
             default:
