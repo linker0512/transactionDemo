@@ -247,4 +247,5 @@ public class Cmd {
         WriteCmd("getTransactionDataByIdentification(\""+identification+"\")");
     }
 
+
 }

@@ -1,11 +1,19 @@
 body {
+  /*
   padding-top: 30px;
   padding-bottom: 30px;
   padding-right: 30px;
   padding-left: 30px;
-  background-color: lightblue;
+  */
+  background-color: #cccccc;
 }
-div{margin:5px;border:0;padding:0;}
+
+div{
+margin:0px;
+border:0;
+padding:0;
+}
+
 .center {
     margin: auto;
     width: 65%;
@@ -26,4 +34,63 @@ input {
     width: 100%;
     padding: 3px;
     margin: 0px;
+}
+
+.container-header{
+
+  padding-right: 300px;
+  padding-left: 300px;
+}
+
+.account-left{
+padding-top: 5px;
+    float: left;
+    width: 65px;
+}
+.account-right{
+    padding-bottom: 5px;
+     padding-top: 0px;
+    margin-left: 50px;
+}
+
+
+.account-parent{
+    padding-right: 100px;
+    padding-left: 100px;
+    margin-left: 0px;
+}
+.account-element{
+    float: left;
+    width: 33%;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+        overflow:hidden;
+}
+.account-address{
+    width = 20px
+    text-overflow: ellipsis;
+    overflow:hidden;
+
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    width:inherit;
+    height:inherit;
+    margin: 0 auto;
+    pointer-events: all;
 }

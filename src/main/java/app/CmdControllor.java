@@ -34,12 +34,12 @@ public class CmdControllor {
         return "result :: resultCreateAccount";
     }
 
-    @RequestMapping(value = "/accounts")
-    public String GetAccount(Model model){
-        mycmd._GetAccounts();
-        model.addAttribute("Accounts", mycmd.getAccounts());
-        return "result :: resultAccounts";
-    }
+//    @RequestMapping(value = "/accounts")
+//    public String GetAccount(Model model){
+//        mycmd._GetAccounts();
+//        model.addAttribute("Accounts", mycmd.getAccounts());
+//        return "result :: resultAccounts";
+//    }
 
     @RequestMapping("/unlock/{accountIndex}/{unlockpasswd}/{length}")
     public String Unlock(Model model , @PathVariable String  accountIndex,
@@ -132,6 +132,20 @@ public class CmdControllor {
             default:
                 return null;
         }
+    }
+    @RequestMapping("/accounts")
+    public String test(Model model){
+        ArrayList<Account[]> a = new ArrayList<>();
+        int index = 0;
+        for(int i = 0 ; i<5 ; i++){
+            Account[] b =new Account[3];
+            for(int j = 0;j<3 ; j++){
+                b[j] = new Account(index++,"23213fsdfrewrewrewr12","213ewrewrwerewrewrewrewrewrewrew213213");
+            }
+            a.add(b);
+        }
+           model.addAttribute("AllAccount",a);
+        return "/test";
     }
 
 }
