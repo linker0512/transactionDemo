@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Account {
     int index;
-    String balance;
     String address;
+    String balance;
 }

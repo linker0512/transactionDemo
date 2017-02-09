@@ -43,7 +43,7 @@ input {
 }
 
 .account-left{
-padding-top: 5px;
+    padding-top: 5px;
     float: left;
     width: 65px;
 }
@@ -93,4 +93,8 @@ padding-top: 5px;
     height:inherit;
     margin: 0 auto;
     pointer-events: all;
+}
+
+.alert {
+  display:inline-block;
 }

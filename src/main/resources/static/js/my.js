@@ -1,5 +1,6 @@
 function getAccounts(){
-    $("#resultAccounts").load('/accounts');
+console.log(222);
+    $("#getAccounts").load('/accounts');
 }
 
 function unlockAccount(){
@@ -18,8 +19,9 @@ function getTransaction(){
 }
 
 function createAccount(){
-    new Url('/createAccount',$("#resultCreateAccount"))
-    .start($('#createAccountPasswd'));
+console.log(111);
+    new Url('/createAccount',$("#getAccounts"))
+    .start($('#password_input'));
 }
 
 function Url(u,id){

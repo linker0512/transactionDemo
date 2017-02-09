@@ -29,9 +29,13 @@ public class CmdControllor {
 
     @RequestMapping("/createAccount/{createAccountPasswd}")
     public String CreatAccount(Model model , @PathVariable String createAccountPasswd){
-        model.addAttribute("TYPE","SUCCESS");
-        model.addAttribute("CREATEACCOUNT", "the address is " + mycmd.CreateAccuont(createAccountPasswd));
-        return "result :: resultCreateAccount";
+//        model.addAttribute("TYPE","SUCCESS");
+//        model.addAttribute("CREATEACCOUNT", "the address is " + mycmd.CreateAccuont(createAccountPasswd));
+        mycmd.CreateAccuont(createAccountPasswd);
+        mycmd._GetAccounts();
+        ArrayList<Account[]> a = mycmd.GetAccountsInto3();
+        model.addAttribute("AllAccount", a);
+        return "account :: getAccounts";
     }
 
 //    @RequestMapping(value = "/accounts")
@@ -115,7 +119,7 @@ public class CmdControllor {
 
     @RequestMapping("/error/{type}")
     public String Error(Model model , @PathVariable String type){
-        model.addAttribute("TYPE","FAIL");
+        model.addAttribute("TYPE","false");
         switch(type){
             case "unlock":
                 model.addAttribute("UNLOCK","miss token");
@@ -127,25 +131,24 @@ public class CmdControllor {
                 model.addAttribute("GETTRANSACTION","miss token");
                 return "result :: resultGetTransaction";
             case "createAccount":
-                model.addAttribute("CREATEACCOUNT","miss token");
-                return "result :: resultCreateAccount";
+                //model.addAttribute("CREATEACCOUNT","miss token");
+                return "account :: getAccounts";
             default:
                 return null;
         }
     }
     @RequestMapping("/accounts")
     public String test(Model model){
-        ArrayList<Account[]> a = new ArrayList<>();
-        int index = 0;
-        for(int i = 0 ; i<5 ; i++){
-            Account[] b =new Account[3];
-            for(int j = 0;j<3 ; j++){
-                b[j] = new Account(index++,"23213fsdfrewrewrewr12","213ewrewrwerewrewrewrewrewrewrew213213");
-            }
-            a.add(b);
-        }
-           model.addAttribute("AllAccount",a);
-        return "/test";
+        mycmd._GetAccounts();
+        ArrayList<Account[]> a = mycmd.GetAccountsInto3();
+        model.addAttribute("AllAccount", a);
+        model.addAttribute("TYPE","true");
+
+        return "account :: getAccounts";
     }
 
+    @RequestMapping("/transaction")
+    public String aaa(){
+        return "index";
+    }
 }

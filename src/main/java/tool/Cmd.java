@@ -226,6 +226,27 @@ public class Cmd {
         }
     }
 
+    public ArrayList<Account[]> GetAccountsInto3(){
+        ArrayList<Account[]> re = new ArrayList<Account[]>();
+//        int index = 0;
+        int i = 0;
+        for(int j = 0; j< accounts_count / 3 ; j++){
+            Account[] a = new Account[3];
+            for(int index = 0 ; index <3 ;){
+                System.out.println(index);
+                a[index++] = accounts.get(i++);
+                a[index++] = accounts.get(i++);
+                a[index++] = accounts.get(i++);
+            }
+            re.add(a);
+        }
+        Account[] a = new Account[accounts_count % 3];
+        for(int j = 0; j<accounts_count % 3;j++)
+            a[j] = accounts.get(i++);
+        re.add(a);
+        return re;
+    }
+
     public String SendTransactionByAccount(int sendIndex , int receiveIndex , int amount , String data , String identification){
         state = State.SENDTRANSACTION;
         WriteCmdNoReturn("s = generate("+sendIndex+","+receiveIndex+","+amount+",\""+data+"\",\""+identification+"\")");

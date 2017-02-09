@@ -1,157 +1,74 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <link href="../static/css/bootstrap.min.css"
+              th:href="@{css/bootstrap.min.css}"
+              rel="stylesheet"
+        />
+        <link href="../static/css/custom.css"
+              th:href="@{css/custom.css}"
+              rel="stylesheet"
+        />
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
+        />
+    </head>
+    <body>
 
-    <link href="../static/css/bootstrap.min.css"
-          th:href="@{css/bootstrap.min.css}"
-          rel="stylesheet"
-    />
-    <link href="../static/css/custom.css"
-          th:href="@{css/custom.css}"
-          rel="stylesheet"
-    />
-
-</head>
-<body>
-<div >
+    <nav class="navbar navbar-inverse">
+        <div class="container-header">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Ethereum</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Home</a></li>
+                <li><a id="aaa" href="">Account</a></li>
+                <li><a href="/transaction">Transaction</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
-        <div class="jumbotron">
-            <h1>以太坊传递消息测试</h1>
-            <p>~~~~~~~~~~~~~</p>
-        </div>
+        <!--<h1 class="post-title">Account List</h1>-->
+        <div id = "getAccounts"></div>
+        <br></br>
+
     </div>
-    <div class = "center">
-        <div class="w3-container">
+    <!--<div class="container">-->
+        <!--<h1 class="post-title">Create Account</h1>-->
 
-            <div id = "CREATEACCOUNT">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h2 align="center">创建用户</h2>
-                    </div>
-                </div>
-                <form style="padding-up:20px"  enctype="text/plain">
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr  class="warning">
-                            <td  style="text-align:center;"><p><font size="4" face="arial" color="black">用户密码</font></p></td>
-                            <td><input width="100%" type="text" id="createAccountPasswd" name="createAccountPasswd"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div id = "resultCreateAccount"></div>
-                    <button type="button"  onclick="createAccount()"
-                            class="btn btn-success pull-right" >注册</button>
-                </form>
-            </div>
-            <br></br><br></br>
-            <!--查询账户信息-->
-            <div id = "ACCOUNTS">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 align="center">查询账户信息</h2>
-                        </div>
-                    </div>
-                <form style="padding-up:20px"  enctype="text/plain">
-                        <div id = "resultAccounts"></div>
-                    <button type="button"  onclick="getAccounts()"  class="btn btn-success pull-right" >获取账户信息</button>
-                </form>
-            </div>
-            <br></br><br></br>
-
-            <div id = "UNLOCK">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h2 align="center">解锁账户</h2>
-                    </div>
-                </div>
-                <!--<div style="padding-up:50px">-->
-                <form style="padding-up:50px" enctype="text/plain">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th  style="text-align:center;">Account Index</th>
-                                <th  style="text-align:center;">Account passwd</th>
-                                <th  style="text-align:center;">Length</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  class="warning">
-                                <td><input width="100%" type="text" id="accountIndex" name="accountIndex"/></td>
-                                <td><input width="100%" type="password" id="unlockpasswd" name="unlockpasswd"/></td>
-                                <td><input width="100%" type="text" id="length" name="length"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                        <div id = "resultUnlock"></div>
-                    <button type="button"  onclick="unlockAccount()" class="btn btn-success pull-right" >解锁账户</button>
-                </form>
-            </div>
-            <br></br><br></br>
-            <div id = "TRANSACTION">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 align="center">发送交易</h2>
-                        </div>
-                    </div>
-                <form style="padding-up:20px"  enctype="text/plain">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th  style="text-align:center;">Send Index</th>
-                                <th  style="text-align:center;">Receive Index</th>
-                                <th  style="text-align:center;">Amount</th>
-                                <th  style="text-align:center;">Data</th>
-                                <th  style="text-align:center;">Identification</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr  class="warning">
-                                <td><input width="100%" type="text" id="sendIndex" name="sendIndex"/></td>
-                                <td><input width="100%" type="text" id="receiveIndex" name="receiveIndex"/></td>
-                                <td><input width="100%" type="text" id="sendAmount" name="sendAmount"/></td>
-                                <td><input width="100%" type="text" id="sendData" name="sendData"/></td>
-                                <td><input width="100%" type="text" id="sendIdentification" name="sendIdentification"/></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                        <div id = "resultTransaction"></div>
-                    <button type="button"  onclick="sendTransaction()"  class="btn btn-success pull-right" >发送交易</button>
-                </form>
-            </div>
-            <br></br><br></br>
-            <div id = "GETTRANSACTION">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h2 align="center">查询交易信息</h2>
-                    </div>
-                </div>
-                <form style="padding-up:20px"  enctype="text/plain">
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr  class="warning">
-                            <td  style="text-align:center;"><p><font size="4" face="arial" color="black">查询关键字</font></p></td>
-                            <td><input width="100%" type="text" id="identification" name="identification"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div id = "resultGetTransaction"></div>
-                    <button type="button"  onclick="getTransaction()"  class="btn btn-success pull-right" >获取交易信息</button>
-                </form>
-            </div>
-            <br></br><br/>
-        </div>
-    </div>
-
-</div>
-
-</body>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
-<script src="../static/js/my.js" th:src="@{js/my.js}"></script>
+        <!--<button type="button"   class="btn btn-success pull-left " data-toggle="modal" data-target="#createAccountmodal">-->
+            <!--<i class="fa fa-plus-square"></i>  注册</button>-->
+        <!--<div class="modal fade" id="createAccountmodal" role="dialog">-->
+            <!--<div class="vertical-alignment-helper">-->
+                <!--<div class="modal-dialog modal-sm vertical-align-center">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                            <!--<p><font  size="5">Create Account</font></p>-->
+                        <!--</div>-->
+                        <!--<form style="padding-up:20px"  enctype="text/plain">-->
+                            <!--<div class="modal-body">-->
+                                <!--<input type="text" id="password_input" name="password_input" placeholder="Enter password" />-->
+                            <!--</div>-->
+                            <!--<div class="modal-footer">-->
+                                <!--<button type="button"  onclick="createAccount()" class="btn btn-success pull-right ">-->
+                                    <!--<i class="fa fa-plus-square"></i>注册</button>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+    <script src="../static/js/my.js" th:src="@{js/my.js}"></script>
+    <script>$('#aaa').click(getAccounts());</script>
 </html>
+
+
