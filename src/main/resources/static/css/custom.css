@@ -5,7 +5,7 @@ body {
   padding-left: 30px;
   background-color: lightblue;
 }
-div{margin:5px;border:0;padding:0;}
+
 .center {
     margin: auto;
     width: 65%;
@@ -26,4 +26,9 @@ input {
     width: 100%;
     padding: 3px;
     margin: 0px;
+}
+.alert {
+   width:40%;
+   margin-left: 30%;
+    text-align:center
 }

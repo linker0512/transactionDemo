@@ -12,23 +12,25 @@
         />
     </head>
     <body>
-
         <div th:fragment="resultCreateAccount" class="results-CreateAccount">
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
                     <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
-                        </div>
+                    <!--<div class="panel panel-success">-->
+                        <!--<div class="panel-heading">-->
+                            <!--<h4  align="center" th:text="${CREATEACCOUNT}"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="alert alert-success alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong th:text="|Success! ${CREATEACCOUNT}|"></strong>
                     </div>
                 </div>
                 <div th:case="'FAIL'">
                     <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
-                        </div>
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong th:text="|Error! ${CREATEACCOUNT}|"></strong>
                     </div>
                 </div>
             </div>
@@ -58,19 +60,17 @@
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
                     <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${UNLOCK}"/>
-                        </div>
+                    <div class="alert alert-success alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong th:text="|Success! ${UNLOCK}|"></strong>
                     </div>
                 </div>
                   <div th:case="'FAIL'">
                       <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${UNLOCK}"/>
-                        </div>
-                    </div>
+                      <div class="alert alert-danger alert-dismissable fade in">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong th:text="|Error! ${UNLOCK}|"></strong>
+                      </div>
                 </div>
             </div>
         </div>
@@ -79,19 +79,17 @@
             <div th:switch="${TYPE}">
                 <div th:case="'SUCCESS'">
                     <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${TRANSCATION}"/>
-                        </div>
+                    <div class="alert alert-success alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong th:text="|Success! ${TRANSCATION}|"></strong>
                     </div>
                 </div>
                   <div th:case="'FAIL'">
                       <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${TRANSCATION}"/>
-                        </div>
-                    </div>
+                      <div class="alert alert-danger alert-dismissable fade in">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong th:text="|Error! ${TRANSCATION}|"></strong>
+                      </div>
                 </div>
             </div>
         </div>
@@ -119,10 +117,9 @@
                 </div>
                 <div th:case="'FAIL'">
                     <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${GETTRANSACTION}"/>
-                        </div>
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong th:text="|Error! ${GETTRANSACTION}|"></strong>
                     </div>
                 </div>
             </div>
