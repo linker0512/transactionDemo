@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+          rel="stylesheet"
+    />
+    <link href="../static/css/custom.css"
+          th:href="@{css/custom.css}"
+          rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
+    />
+</head>
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-inverse">
+        <div class="container-header">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">Ethereum</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a id="account" th:href="@{/accounts}">Account</a></li>
+                <li class="active" ><a id="transaction" th:href="@{/transaction}">Transaction</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="post-title" style="display:inline-block">Send Transaction</h1>
+        <a style="display:inline-block margin-left:10px; margin-bottom:10px;"
+           href="#TransactionHelp" class="btn btn-info btn-xs" data-toggle="collapse"><font size="1">Help</font></a>
+        <div id="TransactionHelp" class="collapse" style="width:500px; margin-left:100px;">
+            SendIndex:发送者地址索引(自然数)<br/>
+            ReceiveIndex:接收者索引(自然数)<br/>
+            Amount:发送数额(32位整型)<br/>
+            Identification:识别码(8位非数字ascii)<br/>
+            Data:发送数据<br/>
+        </div>
+        <br />
+        <br />
+        <form name="registerForm">
+            <div class="transaction-container">
+                <div class="row">
+                    <div class="col-sm-6" >SendIndex<input required="required" width="100%" type="text" id="sendIndex" name="sendIndex"/></div>
+                    <div class="col-sm-6" >ReceiveIndex<input required="required" width="100%" type="text" id="receiveIndex" name="receiveIndex"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" >Amount<input required="required" width="100%" type="text" id="sendAmount" name="sendAmount"/></div>
+                    <div class="col-sm-6" >Identification<input required="required" width="100%" type="text" id="sendIdentification" name="sendIdentification"/></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">Data<input required="required" width="100%" type="text" id="sendData" name="sendData"/></div>
+                </div>
+                <br />
+                <div>
+
+                    <button  type="button" class="btn btn-success pull-right " data-toggle="modal" data-target="#sendTransaction" >
+                        <i style=" padding-right:10px" class="fa fa-etsy"></i>发送
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="sendTransaction" role="dialog">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog modal-sm vertical-align-center">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <p><font  size="5">Password</font></p>
+                            </div>
+
+                                <div class="modal-body">
+                                    <input required="required" type="text" id="password_input" name="password_input" placeholder="Enter password"  />
+                                    <br />
+                                </div>
+
+                            <div class="modal-footer">
+                                <button id="register" data-dismiss="modal" class="btn btn-success pull-right ">
+                                    <i style=" padding-right:10px" class="fa fa-plus-square"></i>发送
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+            <div id="TransactionresultBox" >
+                <div th:replace="result :: resultTransaction" th:fragment = "transaction_result"></div>
+            </div>
+        <h1 class="post-title" style="display:inline-block">Search Transaction</h1>
+        <a style="display:inline-block margin-left:10px; margin-bottom:10px;"
+           href="#SearchTransaction" class="btn btn-info btn-xs" data-toggle="collapse"><font size="1">Help</font></a>
+        <div id="SearchTransaction" class="collapse" style="width:500px; margin-left:100px;">
+            Identification:查询关键字，长度必须为8(不能为ffffffff)
+            <br />
+        </div>
+        <form name="searchForm">
+            <div class="search-container">
+                <div class="row"> 
+                    <div class="col-sm-8" >Key<input required="required" width="100%" type="text" id="Identification" name="Identification"/></div>
+                    <div class="col-sm-4" >
+                        <button  id="searchButton" type="button" class="btn btn-success pull-right " style="margin-top:40px;" >
+                            <i style=" padding-right:10px" class="fa fa-etsy"></i>查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="SearchresultBox" style="padding-left:100px; padding-right:100px;">
+            <div th:replace="result :: resultSearch" th:fragment = "search_result"></div>
+        </div>
+    </div>
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+<script src="../static/js/my.js" th:src="@{js/my.js}"></script>
+<script type="text/javascript">
+    var regnum = new RegExp("^\\d+$");
+     $('#register').click(function(event) {
+        　　event.preventDefault();
+            console.log($('form[name="registerForm"]').serialize());
+            if( ($('#password_input').val() == '') || ($('#sendIndex').val() == '') ||
+                ($('#receiveIndex').val() == '') || ($('#sendAmount').val() == '') ||
+                ($('#sendIdentification').val() == '') || ($('#sendData').val() == '')){
+                    alert("输入非空");
+            }else if(  !regnum.test($('#sendIndex').val()) || !regnum.test($('#receiveIndex').val()) ||
+                       !regnum.test($('#sendAmount').val()) ){
+                    alert("请输入数字");
+            }else if($('#sendIdentification').val().length != 8){
+                    alert("Identification长度为8");
+                    console.log(3);
+            }else if($('#sendIdentification').val() == "ffffffff"){
+                    alert("Identification不能为ffffffff");
+            }else{
+            　　var paramUrl = "/sendtransaction"+ '?'+$('form[name="registerForm"]').serialize();
+                console.log(paramUrl);
+                $('#TransactionresultBox').load(paramUrl);
+            }
+        });
+
+         $('#searchButton').click(function(event) {
+        　　event.preventDefault();
+            console.log($('form[name="searchForm"]').serialize());
+            if( ($('#Identification').val() == '') ){
+                    alert("输入非空");
+            }else if($('#Identification').val().length != 8){
+                    alert("Identification长度为8");
+                    console.log(3);
+            }else if($('#Identification').val() == "ffffffff"){
+                    alert("Identification不能为ffffffff");
+            }else{
+            　　var paramUrl = "/searchtransaction"+ '?'+$('form[name="searchForm"]').serialize();
+                console.log(paramUrl);
+                $('#SearchresultBox').load(paramUrl);
+            }
+        });
+</script>
+</html>

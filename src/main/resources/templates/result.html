@@ -1,131 +1,105 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <link href="../static/css/bootstrap.min.css"
-              th:href="@{css/bootstrap.min.css}"
-              rel="stylesheet"
-        />
-        <link href="../static/css/custom.css"
-              th:href="@{css/custom.css}"
-              rel="stylesheet"
-        />
-    </head>
-    <body>
+<body>
 
-        <div th:fragment="resultCreateAccount" class="results-CreateAccount">
-            <div th:switch="${TYPE}">
-                <div th:case="'SUCCESS'">
-                    <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
-                        </div>
+
+<div th:fragment="getAccounts" >
+    <div  class="container">
+        <!--<h1 class="post-title">Account List</h1>-->
+        <br></br>
+        <div  th:each ="accounts:${AllAccount}" class="account-parent">
+            <div th:each="account:${accounts}" class="account-element">
+                <!--th:href="@{|/getAccount/${account.index}|}"-->
+                <a  style="inline-block color:black; text-decoration:none;"  data-toggle="modal" data-target="#myModal">
+                    <div class="account-left">
+                        <img th:src="@{..//1.png}" class="img-circle" alt="Circle" width="50" height="50"/>
                     </div>
-                </div>
-                <div th:case="'FAIL'">
-                    <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${CREATEACCOUNT}"/>
+                    <div class="account-right">
+                        <span th:text="'index: '+${account.index}"></span>
+                        <div class="account-address" th:text="${account.balance}+'wei'"></div>
+                        <div class="account-address" th:text="${account.address}"></div>
+                    </div>
+                </a>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="vertical-alignment-helper">
+                        <div class="modal-dialog modal-lg vertical-align-center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <p><font th:text="'index:  '+${account.index}" size="5"></font></p>
+                                </div>
+                                <div class="modal-body">
+                                    <p><font th:text="'balance:  '+${account.balance}" size="4"></font><font size="2">wei</font></p>
+                                    <p><font  th:text="'address:  '+${account.address}" size="4"></font></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div th:fragment="resultAccounts" class="results-Accountblock">
+
+<div th:fragment="resultTransaction" class="results-Transactionblock" style="width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;text-align: center;">
+    <br />
+    <div th:switch="${TYPE}">
+        <div th:case="'SUCCESS'">
+            <h4 name = "result"  hidden = "true" >OK</h4>
+            <div class="alert alert-success alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong th:text="|Success! Address is ${TRANSCATION}|"></strong>
+            </div>
+        </div>
+        <div th:case="'FAIL'">
+            <h4 name = "result"  hidden = "true" >FAIL</h4>
+            <div class="alert alert-danger alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong th:text="|${TRANSCATION}|"></strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="resultSearch">
+    <br />
+    <div th:switch="${TYPE}">
+        <div th:case="'SUCCESS'">
             <h4 name = "result"  hidden = "true" >OK</h4>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th  style="text-align:center;">Index</th>
-                    <th  style="text-align:center;">Account Address</th>
-                    <th  style="text-align:center;">Account Balance</th>
+                    <th  style="text-align:center;">Block Number</th>
+                    <th  style="text-align:center;">Block Index</th>
+                    <th  style="text-align:center;">Block Data</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:each = "account : ${Accounts}" class="success">
-                        <td width="10%" th:text = "${account.index}"></td>
-                        <td width="45%" th:text = "${account.address}"></td>
-                        <td width="45%" th:text = "${account.balance}"></td>
-                    </tr>
+                <tr th:each = "transaction : ${GETTRANSACTION}" class="success">
+                    <td width="20%" th:text = "${transaction.transactionBlock}"></td>
+                    <td width="20%" th:text = "${transaction.transactionIndex}"></td>
+                    <td width="60%" th:text = "${transaction.transactionData}"></td>
+                </tr>
                 </tbody>
             </table>
         </div>
-
-        <div th:fragment="resultUnlock" class="results-Unlockblock">
-            <div th:switch="${TYPE}">
-                <div th:case="'SUCCESS'">
-                    <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${UNLOCK}"/>
-                        </div>
-                    </div>
-                </div>
-                  <div th:case="'FAIL'">
-                      <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${UNLOCK}"/>
-                        </div>
-                    </div>
-                </div>
+        <div th:case="'FAIL'">
+            <h4 name = "result"  hidden = "true" >FAIL</h4>
+            <div class="alert alert-danger alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong th:text="|Error! ${GETTRANSACTION}|"></strong>
             </div>
         </div>
+    </div>
+</div>
 
-         <div th:fragment="resultTransaction" class="results-Transactionblock">
-            <div th:switch="${TYPE}">
-                <div th:case="'SUCCESS'">
-                    <h4 name = "result"  hidden = "true" >OK</h4>
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${TRANSCATION}"/>
-                        </div>
-                    </div>
-                </div>
-                  <div th:case="'FAIL'">
-                      <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4  align="center" th:text="${TRANSCATION}"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div th:fragment="resultGetTransaction" class="results-GetTransactionblock">
-            <div th:switch="${TYPE}">
-                <div th:case="'SUCCESS'">
-                    <h4 name = "result"  hidden = "true" >OK</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th  style="text-align:center;">Block Number</th>
-                            <th  style="text-align:center;">Block Index</th>
-                            <th  style="text-align:center;">Block Data</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each = "transaction : ${GETTRANSACTION}" class="success">
-                            <td width="20%" th:text = "${transaction.transactionBlock}"></td>
-                            <td width="20%" th:text = "${transaction.transactionIndex}"></td>
-                            <td width="60%" th:text = "${transaction.transactionData}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div th:case="'FAIL'">
-                    <h4 name = "result"  hidden = "true" >FAIL</h4>
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <h4 align="center" th:text="${GETTRANSACTION}"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>

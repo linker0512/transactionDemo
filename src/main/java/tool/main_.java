@@ -28,9 +28,10 @@ public class main_ {
 //        System.out.println(testClass1.equals(testClass2));
 //        System.out.println("21321321321".matches("\\d+"));
         Cmd cmd = new Cmd();
-        cmd.CreateAccuont("1");
+//        cmd.CreateAccuont("1");
         cmd.UnlockAccount(0,"1",3);
-        cmd.GetTransactionDataByIdentification("^^^^^^^^");
+        cmd.SendTransactionByAccount(0,1,1,"131","^^^^^^^^");
+//        cmd.GetTransactionDataByIdentification("^^^^^^^^");
 //        cmd.getTransactions().forEach(System.out::println);
 //        System.out.println("\"0xba3ce47b92eefa36e5535f21826cff4a90c3d2ae\"".length());
 //        cmd.WriteCmdNoReturn("end();");
@@ -60,7 +61,7 @@ public class main_ {
         }
 //        cmd.SendTransactionByAccount(2,0,10,"helloworld","^^^^^^^^");
 //        cmd.CreateAccuont("5");
-
+        System.out.println("123123");
         //cmd.WriteCmd("getBalance("+0+")");
         //cmd.GetTransactionDataByIdentification("^^^^^^^^");
     }

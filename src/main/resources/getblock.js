@@ -34,12 +34,7 @@ function listUncleBlock(){
 function getTransactionDataByIdentification(identification){
     for(var i = 0 ; i<=eth.blockNumber ; i++){
         for(var j = 0; j < eth.getBlockTransactionCount(i) ; j++){
-//        console.log(i);
             if(web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(0,identification.length) == identification){
-//                console.log("the data is  "+
-//                web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(identification.length)+
-//                "  the block number is  "+  i +
-//                "  the transaction index is  " +j);
                 console.log(i);
                 console.log(j);
                 console.log(web3.toAscii(eth.getTransactionFromBlock(i,j).input).substring(identification.length));
@@ -59,7 +54,7 @@ function generate(sendIndex , receiveIndex , amount , data ,identification){
     var s = new Object();
     s.from = eth.accounts[sendIndex];
     s.to = eth.accounts[receiveIndex];
-    s.value = web3.toWei(amount,"ether");
+    s.value = amount;
     s.data = web3.toHex(identification+data);
 //    setTimeout(function(){console.log("ffffffff");
 //    },100);

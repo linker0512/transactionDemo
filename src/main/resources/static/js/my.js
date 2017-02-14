@@ -46,3 +46,31 @@ function Url(u,id){
 }
 
 
+function Send(sendId , renderBox){
+    var send = new Object();
+    send.id = sendId;
+    send.renderbox = renderBox;
+    send.start = function(){
+        sendId.click(function(event) {
+         　　event.preventDefault();
+//             $('#accountLi').addClass("active");
+         　　var paramUrl = send.id.attr("href");
+             console.log(paramUrl);
+         　　$.ajax({
+         　　　　type : "GET",
+         　　　　url : paramUrl,
+         　　　　dataType : "html",
+         　　　　success : function(data, status, xhr) {
+         　　　　　　 send.renderbox.html(data);
+                     console.log('success');
+                         console.log(data);
+         　　　　},
+         　　　　error : function(XMLHttpRequest, status, errorThrown) {
+         　　　　}
+         　　});
+         });
+    }
+    return send;
+}
+
+

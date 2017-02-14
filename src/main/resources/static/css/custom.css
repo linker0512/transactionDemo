@@ -98,3 +98,25 @@ input {
 .alert {
   display:inline-block;
 }
+
+.transaction-container {
+    margin: auto;
+    width: 80%;
+    background-color: #66ccff;
+    height:230px;
+    padding: 10px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+}
+
+.search-container{
+    margin: auto;
+    width: 80%;
+    background-color: #66ccff;
+    height:100px;
+    padding: 10px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+}

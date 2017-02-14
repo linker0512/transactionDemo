@@ -42,14 +42,12 @@ public class Cmd {
     @Getter private ArrayList<Account> accounts;
     @Getter private ArrayList<TransactionData> transactions;
     private int accounts_count;
-    private int lineCount;
 
     public Cmd() {
         processBuilder = new ProcessBuilder("geth.exe", "attach");
         processBuilder.redirectErrorStream(true);
         accounts = new ArrayList<Account>();
 
-        lineCount = 0;
         accounts_count = 0;
         state = State.NULLSTATE;
         try {
@@ -146,7 +144,7 @@ public class Cmd {
                             System.out.println(line);
                             return line;
                         }else{
-                            ;
+                            System.out.println(line);
                         }
                     }
                     break;
