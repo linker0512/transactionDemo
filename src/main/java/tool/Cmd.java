@@ -168,7 +168,7 @@ public class Cmd {
                             break;
                         }else if(line.equals("undefined") || line.equals("> ")){
                             ;
-                        }else if(line.matches("\\d*")){
+                        }else if(line.matches("\\d*|\\d+\\.\\d+e\\+\\d+")){
 //                            System.out.println("GETBALANCE");
                             return line;
                         }else {
