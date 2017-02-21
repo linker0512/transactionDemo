@@ -111,6 +111,7 @@ public class CmdControllor {
             model.addAttribute("GETTRANSACTION", "Identification's length must be 8");
         }
         return "result :: resultGetTransaction";
+
     }
 
     @RequestMapping("/error/{type}")

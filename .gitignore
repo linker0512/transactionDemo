@@ -14,3 +14,4 @@ buildNumber.properties
 .idea/libraries/Maven__org_jsoup_jsoup_1_10_2.xml
 .idea/libraries/Maven__org_springframework_boot_spring_boot_test_1_4_2_RELEASE.xml
 .idea/workspace.xml
+.idea/*
