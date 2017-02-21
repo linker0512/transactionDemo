@@ -96,7 +96,7 @@ input {
 }
 
 .alert {
-<<<<<<< Updated upstream
+
   display:inline-block;
 }
 
@@ -120,9 +120,9 @@ input {
     -moz-border-radius:20px;
     -webkit-border-radius:20px;
     border-radius:20px;
-=======
+
    width:60%;
    margin-left: 20%;
     text-align:center
->>>>>>> Stashed changes
+Stashed changes
 }
