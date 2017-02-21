@@ -11,7 +11,7 @@ buildNumber.properties
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
-
+.idea/*
 .idea/libraries/Maven__org_javassist_javassist_3_21_0_GA.xml
 .idea/libraries/Maven__org_jsoup_jsoup_1_10_2.xml
 .idea/libraries/Maven__org_springframework_boot_spring_boot_test_1_4_2_RELEASE.xml
