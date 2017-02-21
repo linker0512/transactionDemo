@@ -77,12 +77,8 @@ public class CmdControllor {
     public String GetTransaction(Model model , @RequestParam String Identification){
         mycmd.GetTransactionDataByIdentification(Identification);
 
-        ArrayList<TransactionData> transactions = new ArrayList<>();
-        for(int i = 0; i<10 ; i++){
-            transactions.add(new TransactionData(String.valueOf(i),String.valueOf(10*i),String.valueOf(100*i)));
-        }
         model.addAttribute("TYPE", "SUCCESS");
-        model.addAttribute("GETTRANSACTION",transactions);
+        model.addAttribute("GETTRANSACTION",mycmd.getTransactions());
 
         return "transaction :: search_result";
     }
