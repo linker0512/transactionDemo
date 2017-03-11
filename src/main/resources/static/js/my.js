@@ -1,5 +1,5 @@
 function getAccounts(){
-console.log(222);
+    console.log(222);
     $("#getAccounts").load('/accounts');
 }
 
@@ -19,7 +19,7 @@ function getTransaction(){
 }
 
 function createAccount(){
-console.log(111);
+    console.log(111);
     new Url('/createAccount',$("#getAccounts"))
     .start($('#password_input'));
 }

@@ -11,7 +11,7 @@
         <div  th:each ="accounts:${AllAccount}" class="account-parent">
             <div th:each="account:${accounts}" class="account-element">
                 <!--th:href="@{|/getAccount/${account.index}|}"-->
-                <a  style="inline-block color:black; text-decoration:none;"  data-toggle="modal" data-target="#myModal">
+                <a  th:attr="data-target='#myModal'+${account.index}" style="inline-block color:black; text-decoration:none;"  data-toggle="modal" >
                     <div class="account-left">
                         <img th:src="@{..//1.png}" class="img-circle" alt="Circle" width="50" height="50"/>
                     </div>
@@ -21,9 +21,9 @@
                         <div class="account-address" th:text="${account.address}"></div>
                     </div>
                 </a>
-                <div class="modal fade" id="myModal" role="dialog">
+                <div th:id="myModal+${account.index}" class="modal fade" role="dialog">
                     <div class="vertical-alignment-helper">
-                        <div class="modal-dialog modal-lg vertical-align-center">
+                        <div class="modal-dialog  vertical-align-center">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -34,7 +34,7 @@
                                     <p><font  th:text="'address:  '+${account.address}" size="4"></font></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -77,9 +77,9 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th  style="text-align:center;">Block Number</th>
-                    <th  style="text-align:center;">Block Index</th>
-                    <th  style="text-align:center;">Block Data</th>
+                    <th  style="text-align:center;">index</th>
+                    <th  style="text-align:center;">Address</th>
+                    <th  style="text-align:center;">Balance</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -100,6 +100,23 @@
         </div>
     </div>
 </div>
-
+<div th:fragment="accountListMaterial">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style=" width: 700px; margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr>
+                <th  style="text-align:center;">Index</th>
+                <th  style="text-align:center;">Address</th>
+                <th  style="text-align:center;">Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each = "account : ${ACCOUNTS}">
+                <td width="10%" th:text = "${account.index}"></td>
+                <td width="45%" th:text = "${account.address}"></td>
+                <td width="45%" th:text = "${account.balance}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

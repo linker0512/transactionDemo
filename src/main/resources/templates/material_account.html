@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="../static/css/material.min.css"
+          th:href="@{css/material.min.css}"
+          rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
+    />
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+
+</head>
+<body>
+    <div th:fragment="createAccount">
+        <!-- Wide card with share menu button -->
+        <style>
+            .demo-card-wide.mdl-card {
+              width: 641px;
+            }
+            .demo-card-wide > .mdl-card__title {
+              color: #fff;
+              height: 451px;
+              background: url('../assets/create.jpg') center / cover;
+            }
+            .demo-card-wide > .mdl-card__menu {
+              color: #fff;
+            }
+        </style>
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="color:#125860;">Create Account</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                For create account, just input password and
+                wait for system retuen your address.
+                CAUTIONS: DO NOT FORGET YOUR PASSWORD!
+            </div>
+            <div class="mdl-card__actions mdl-card--border" style="text-align:right">
+                <form id="register" onsubmit="return create()" >
+                    <fieldset>
+                         <div style="width: 300px; display: block; margin-left: auto; margin-right: auto;">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="password" id="mdl_password" required="required"/>
+                                <label class="mdl-textfield__label" for="mdl_password">Password</label>
+                            </div>
+                        <br />
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="password" id="mdl_password_repeat" required="required"/>
+                                <label class="mdl-textfield__label" for="mdl_password_repeat" id="mdl_password_repeat_lable">Repeat password</label>
+                            </div>
+                        </div>
+                        <button id="register-dialog" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Create One
+                        </button>
+                    </fieldset>
+                    <script type="text/javascript">
+                        function create(){
+                            console.log('success');
+                            var paramUrl = "/createAccount"+ '?'+'password_input='+$('#mdl_password').val();
+                            console.log(paramUrl);
+                            $.ajax({
+                            　　　　type : "GET",
+                            　　　　url : paramUrl,
+                            　　　　dataType : "html",
+                            　　　　success : function(data, status, xhr) {
+                            　　　　　　$('#resultBox').html(data);
+                                    console.log('success');
+                                    console.log(data);
+                            　　　　},
+                            　　　　error : function(XMLHttpRequest, status, errorThrown) {
+                            　　　　}
+                            　　});
+
+                            return false;
+                        }
+                  </script>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

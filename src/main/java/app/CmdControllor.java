@@ -13,6 +13,7 @@ import tool.Cmd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.BlockingDeque;
 
 /**
  * Created by zj on 2017-2-1.
@@ -25,16 +26,21 @@ public class CmdControllor {
 
     @RequestMapping(value = "/")
     public String Init(Model model){
-        return "index";
+        return "home";
     }
 
-    @RequestMapping("/accounts")
-    public String a(Model model){
-        mycmd._GetAccounts();
-        ArrayList<Account[]> a = mycmd.GetAccountsInto3();
-        model.addAttribute("AllAccount", a);
-        model.addAttribute("TYPE","true");
-        return "account";
+    @RequestMapping("/getAccountsPage")
+    public String getAccountsPage(Model model){
+        model.addAttribute("TYPE","INIT");
+        return "getAccount";
+    }
+
+
+    @RequestMapping("/getAccounts")
+    public String getAccounts(Model model){
+        model.addAttribute("ACCOUNTS",mycmd.getAccounts());
+        model.addAttribute("TYPE","OWN");
+        return "getAccount :: result";
     }
 
     @RequestMapping("/transaction")
@@ -76,21 +82,18 @@ public class CmdControllor {
     @RequestMapping("/searchtransaction")
     public String GetTransaction(Model model , @RequestParam String Identification){
         mycmd.GetTransactionDataByIdentification(Identification);
-
         model.addAttribute("TYPE", "SUCCESS");
         model.addAttribute("GETTRANSACTION",mycmd.getTransactions());
-
         return "transaction :: search_result";
     }
 
     @RequestMapping("/createAccount")
-    public String CreatAccount1(Model model , @RequestParam String password_input){
-//        model.addAttribute("TYPE","SUCCESS");
-//        model.addAttribute("CREATEACCOUNT", "the address is " + mycmd.CreateAccuont(createAccountPasswd));
-        mycmd.CreateAccuont(password_input);
-        mycmd._GetAccounts();
-        ArrayList<Account[]> a = mycmd.GetAccountsInto3();
-        model.addAttribute("AllAccount", a);
-        return "account :: result";
+    @ResponseBody
+    public String CreatAccount1(@RequestParam String password_input){
+        return "Address\n  "+mycmd.CreateAccuont(password_input);
+    }
+    @RequestMapping("/createAccountPage")
+    public String CreatAccountpage(){
+        return "account1";
     }
 }

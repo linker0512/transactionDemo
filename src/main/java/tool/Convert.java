@@ -30,7 +30,9 @@ public class Convert {
 //
         try {
             return IDENTIFICATION +
-                    new ObjectMapper().writeValueAsString(o).chars().
+                    new ObjectMapper().
+                            writeValueAsString(o).
+                            chars().
                             mapToObj(n -> Integer.toHexString(n)).
                             collect(Collectors.joining());
                   } catch (IOException e) {

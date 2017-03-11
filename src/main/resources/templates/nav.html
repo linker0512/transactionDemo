@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="../static/css/material.min.css"
+          th:href="@{css/material.min.css}"
+          rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
+    />
+    <!-- Uses a transparent header that draws on top of the layout's background -->
+    <style>
+.demo-layout-transparent {
+  background: url('../static/assets/background.png') center / cover;
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+.mutli_menu{
+height:20px;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+  padding-right: 15px;
+}
+</style>
+</head>
+<body>
+<!--<div th:fragment="nav" class="demo-layout-transparent mdl-layout mdl-js-layout">-->
+<th:block th:fragment="nav">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Menu</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link tab-link" href="">@BJUT BlockChain Group</a>
+                <a class="mdl-navigation__link tab-link" href="">Help</a>
+                <a class="mdl-navigation__link tab-link" href="">System Config</a>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer ">
+        <span class="mdl-layout-title">Menu</span>
+        <nav class="mdl-navigation ">
+            <a id="Home" class="mdl-navigation__link" href="/">
+                <i class="material-icons">home</i>
+                Home
+            </a>
+            <a id="AccountHead" class="mdl-navigation__link" >
+                <i class="material-icons">account_circle</i>
+                Accounts
+            </a>
+            <a id="TransactionHead" class="mdl-navigation__link">
+                <i class="material-icons">monetization_on</i>
+                Transaction
+            </a>
+            <a id="OtherHead" class="mdl-navigation__link">Others</a>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="AccountHead">
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="/createAccountPage">
+                    <i class="material-icons">face</i>Create Account</a>
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="/getAccountsPage">
+                    <i class="material-icons">supervisor_account</i>Check Accounts</a>
+            </ul>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="TransactionHead">
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="">
+                    <i class="material-icons">send</i>Send Transaction</a>
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="">
+                    <i class="material-icons">search</i>Search Transactions</a>
+            </ul>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="OtherHead">
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="">other1</a>
+                <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="">other2</a>
+            </ul>
+        </nav>
+    </div>
+</th:block>
+
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+</html>
+

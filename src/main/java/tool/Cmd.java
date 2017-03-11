@@ -1,17 +1,13 @@
 package tool;
 
 import com.sun.org.apache.regexp.internal.RE;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import entity.Account;
 import entity.TransactionData;
-import jdk.management.resource.internal.inst.SocketOutputStreamRMHooks;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.stream.Stream;
 
 /**
  * Created by zj on 2017-1-31.
@@ -238,10 +234,12 @@ public class Cmd {
             }
             re.add(a);
         }
-        Account[] a = new Account[accounts_count % 3];
-        for(int j = 0; j<accounts_count % 3;j++)
-            a[j] = accounts.get(i++);
-        re.add(a);
+        if (!(accounts_count % 3 == 0 )) {
+            Account[] a = new Account[accounts_count % 3];
+            for (int j = 0; j < accounts_count % 3; j++)
+                a[j] = accounts.get(i++);
+            re.add(a);
+        }
         return re;
     }
 

@@ -6,17 +6,75 @@ package tool;
 import entity.Account;
 import entity.TestClass1;
 import entity.TransactionData;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import tool.Cmd;
 import tool.Convert;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class main_ {
+    public static int[] findDiagonalOrder(int[][] matrix) {
+        int[] result = new int[matrix.length * matrix[0].length];
+        int count = matrix.length + matrix[0].length - 1;
+        int index = 0;
+        int i = 0;
+        int j = 0;
+        for(int sum = 0 ; sum < count ; sum++){
 
+            if((sum & 1) == 0){
+                while(i>=0 && j < matrix[0].length)
+                    result[index++] = matrix[i--][j++];
+                if(j == matrix[0].length)
+                    i+=2;
+                if(i == -1)
+                    i++;
+                if(j == matrix[0].length)
+                    j--;
+            }else{
+                while(i< matrix.length && j >=0)
+                    result[index++] = matrix[i++][j--];
+                if(i == matrix.length)
+                    j+=2;
+                if(i == matrix.length)
+                    i--;
+                if(j == -1)
+                    j++;
+            }
+        }
+        return result;
+    }
+    public static int[] nextGreaterElements(int[] nums) {
+        if(nums.length == 0)
+            return new int[]{};
+        int current = 0;
+        int count = 0;
+        int[] result = new int[nums.length];
+        int i = 0;
+        while(current < nums.length){
+            if(nums[i] > nums[current]){
+                result[current++] = nums[i];
+                count = 0;
+                i = current;
+            }
+            i = (++i)%nums.length;
+            count++;
+            if(count == nums.length){
+                result[current++] = -1;
+                count = 0;
+            }
+
+        }
+        return result;
+    }
     public static void main(String[] args) {
-
+        int[] aa = new int[]{5,4,3,2,1};
+        for(int i : nextGreaterElements(aa))
+            System.out.println(i);
 //        TestClass1 testClass1 = new TestClass1(1,"453245");
 //        String testClass1 = new String("123");
 //        Convert.GetConvertJsonString(testClass1);
@@ -27,10 +85,11 @@ public class main_ {
 //        System.out.println(testClass2);
 //        System.out.println(testClass1.equals(testClass2));
 //        System.out.println("21321321321".matches("\\d+"));
-        Cmd cmd = new Cmd();
-//        cmd.CreateAccuont("1");
-        cmd.UnlockAccount(0,"1",3);
-        cmd.SendTransactionByAccount(0,1,1,"131","^^^^^^^^");
+//        Cmd cmd = new Cmd();
+////        cmd.CreateAccuont("1");
+//        cmd.UnlockAccount(0,"1",3);
+//        cmd.SendTransactionByAccount(0,1,1,"131","^^^^^^^^");
+//        System.out.println("USA".matches("[A-Z]+"));
 //        cmd.GetTransactionDataByIdentification("^^^^^^^^");
 //        cmd.getTransactions().forEach(System.out::println);
 //        System.out.println("\"0xba3ce47b92eefa36e5535f21826cff4a90c3d2ae\"".length());
@@ -54,15 +113,30 @@ public class main_ {
 //        System.out.println((cmd.UnlockAccount(2, "3", 300)));
 //        cmd.CreateAccuont("5");
 //        System.out.println((cmd.UnlockAccount(3, "4", 300)));
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(50);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        cmd.SendTransactionByAccount(2,0,10,"helloworld","^^^^^^^^");
 //        cmd.CreateAccuont("5");
-        System.out.println("123123");
+//        System.out.println("123123");
         //cmd.WriteCmd("getBalance("+0+")");
         //cmd.GetTransactionDataByIdentification("^^^^^^^^");
+        HashMap<Integer,Integer> map = new HashMap<>();
+        map.put(1,1);
+        map.put(2,34);
+        map.put(3,-1);
+        List<Integer> types = map
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<Integer, Integer>comparingByKey().reversed())
+                .map(Map.Entry::getKey)
+                .limit(2)
+                .collect(Collectors.toList());
+//        map.entrySet().stream()
+//                .sorted(Map.Entry.<Integer, Integer>comparingByValue())
+//                .forEachOrdered(x -> result.add( x.getValue()));
+        System.out.println(4&1);
     }
 }
