@@ -4,8 +4,10 @@
 <head th:include="home :: head">
 </head>
 <body >
-    <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-        <th:block th:replace="nav :: nav"></th:block>
+    <!--<div class="demo-layout-transparent mdl-layout mdl-js-layout">-->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+        <th:block th:replace="th_block :: nav (home='false',text='',account=${account})"></th:block>
             <main class="mdl-layout__content" style="align-items: center;justify-content: center;">
                 <style>
                     .demo-card-wide.mdl-card {
@@ -52,6 +54,7 @@
                     background-repeat: repeat;
                 }
         </style>
+        <!--<th:block th:replace="th_block::footer"></th:block>-->
     </div>
 </body>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

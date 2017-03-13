@@ -57,11 +57,11 @@ height:20px;
 </head>
 <body>
 <!--<div th:fragment="nav" class="demo-layout-transparent mdl-layout mdl-js-layout">-->
-<th:block th:fragment="nav">
+<th:block th:fragment="nav (home,text,account)">
     <header class="mdl-layout__header mdl-layout__header--transparent">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Menu</span>
+            <span th:text="${text}" th:remove="${home}? none : all" class="mdl-layout-title"/>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
@@ -72,10 +72,31 @@ height:20px;
             </nav>
         </div>
     </header>
-    <div class="mdl-layout__drawer ">
+    <div class="mdl-layout__drawer" >
+        <header class="drawer-header ">
+            <img th:src="@{../assets/avatar.jpg}" class="avatar"/>
+            <nav class="mdl-navigation ">
+                <div class="avatar-dropdown">
+                    <span th:text="${account}"/>
+                    <div class="mdl-layout-spacer"></div>
+                    <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                        <i class="material-icons" role="presentation">arrow_drop_down</i>
+                        <!--<span class="visuallyhidden">Accounts</span>-->
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                        <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="/accountManagePage">
+                            <i class="material-icons">build</i>Account management</a>
+                        <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="/dataManagePage">
+                            <i class="material-icons">dashboard</i>Data management</a>
+                        <a class="mdl-menu__item mdl-navigation__link mutli_menu" href="/login">
+                            <i class="material-icons">add_box</i>Add new account</a>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <span class="mdl-layout-title">Menu</span>
         <nav class="mdl-navigation ">
-            <a id="Home" class="mdl-navigation__link" href="/">
+            <a id="Home" class="mdl-navigation__link" href="/home">
                 <i class="material-icons">home</i>
                 Home
             </a>
@@ -114,6 +135,18 @@ height:20px;
     </div>
 </th:block>
 
+<th:block th:fragment="footer">
+    <br />
+    <footer class="mdl-mini-footer" style="padding-bottom:-20px;">
+        <div class="mdl-mini-footer__right-section">
+            <div class="mdl-logo">@BJUT BlockChain Group</div>
+            <ul class="mdl-mini-footer__link-list">
+                <li><a href="#">Contract us</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+    </footer>
+</th:block>
 </body>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>

@@ -1,18 +1,14 @@
 /**
  * Created by zj on 2017-1-30.
  */
-package tool;
+package zj.tool;
 
-import entity.Account;
-import entity.TestClass1;
-import entity.TransactionData;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import tool.Cmd;
-import tool.Convert;
+import zj.entity.Account;
+import zj.entity.TestClass1;
+import zj.entity.TransactionData;
+import zj.tool.Cmd;
+import zj.tool.Convert;
 
-import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.util.*;
 import java.util.stream.Collectors;
 

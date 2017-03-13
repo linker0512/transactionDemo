@@ -1,37 +1,40 @@
-package app;
+package zj.controller;
 
-import entity.Account;
-import entity.TransactionData;
+import zj.entity.Account;
+import zj.entity.TransactionData;
+import zj.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import tool.Cmd;
+import zj.service.ServiceInterface.userService;
+import zj.service.userServiceImpl;
+import zj.tool.Cmd;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.BlockingDeque;
+import javax.management.modelmbean.ModelMBeanOperationInfo;
 
 /**
  * Created by zj on 2017-2-1.
  */
 @Controller
-@ComponentScan("tool")
-public class CmdControllor {
+@ComponentScan("zj/tool")
+public class CmdController {
+    @Autowired
+    private userServiceImpl userservice;
+    @Autowired
+    Cmd mycmd;
 
-    @Autowired Cmd mycmd;
-
-    @RequestMapping(value = "/")
+    @RequestMapping("/home")
     public String Init(Model model){
+        model.addAttribute("account",userservice.currentUserName);
         return "home";
     }
 
     @RequestMapping("/getAccountsPage")
     public String getAccountsPage(Model model){
         model.addAttribute("TYPE","INIT");
+        model.addAttribute("account",userservice.currentUserName);
         return "getAccount";
     }
 
@@ -93,7 +96,8 @@ public class CmdControllor {
         return "Address\n  "+mycmd.CreateAccuont(password_input);
     }
     @RequestMapping("/createAccountPage")
-    public String CreatAccountpage(){
+    public String CreatAccountpage(Model model){
+        model.addAttribute("account",userservice.currentUserName);
         return "account1";
     }
 }

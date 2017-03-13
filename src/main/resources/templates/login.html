@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="mdl-card__actions mdl-card--border" style="text-align:right">
-                <form name="__Form"  >
+                <form name="__Form" id="loginForm" action="login.do" >
                     <div name ="form" style="width: 300px; display: block; margin-left: auto; margin-right: auto;">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
                             <input class="mdl-textfield__input" type="text" id="account" name="account" required="required"/>
@@ -81,7 +81,8 @@
 
 $(function(){
     $('#register_addon').hide();
-
+    var time_2s = 2000;
+    var time_3s = 3000;
     $('#login_register').click(function() {
         console.log($('#login_register').is(':checked'));
         isRegister = $('#login_register').is(':checked');
@@ -96,7 +97,7 @@ $(function(){
     });
 
     function snakeData(msg,timeout){
-
+         
          var data = {
             message: msg,
             actionHandler: function(event) {document.querySelector('.mdl-js-snackbar').MaterialSnackbar.cleanup_()},
@@ -117,7 +118,7 @@ $(function(){
                     //var dataJson = JSON.parse(data);
                     func(data.result.resultText);
                     if(data.flg)
-                        var t=setTimeout("window.location.href = \"localhost\";",3000);
+                        var t=setTimeout("$('form#loginForm').submit();",time_3s);
                 }
     　　　　},
     　　　　error : function(XMLHttpRequest, status, errorThrown) {
@@ -127,7 +128,6 @@ $(function(){
                 console.log(errorThrown);
     　　　　}
 　　    });
-
     }
     $('#login').click(function(event) {
 　　     event.preventDefault();
@@ -137,24 +137,24 @@ $(function(){
         var notification = document.querySelector('.mdl-js-snackbar');
         if($('#login_register').is(':checked')){
             if(password_repeat.value == "" || password.value == "")
-                notification.MaterialSnackbar.showSnackbar(snakeData("Repeat Passwords Empty",2000));
+                notification.MaterialSnackbar.showSnackbar(snakeData("Repeat Passwords Empty",time_2s));
             else if(password_repeat.value != password.value)
-                notification.MaterialSnackbar.showSnackbar(snakeData("Passwords don not match!",2000));
+                notification.MaterialSnackbar.showSnackbar(snakeData("Passwords don not match!",time_2s));
             else if(account.value == "")
-                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",2000));
+                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",time_2s));
             else
                 sendAjax("/register.do?" + $('form[name="__Form"]').serialize(),
                 function(data){
-                    notification.MaterialSnackbar.showSnackbar(snakeData(data,200000));
+                    notification.MaterialSnackbar.showSnackbar(snakeData(data,time_3s));
                 },
                 "json");
         }else{
-            if(account.value == "" )
-                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",2000));
+            if(account.value == "" ) 
+                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",time_2s));
             else if( password.value == "")
-                notification.MaterialSnackbar.showSnackbar(snakeData("Password Empty",2000));
+                notification.MaterialSnackbar.showSnackbar(snakeData("Password Empty",time_2s));
             else
-                sendAjax("/login.do?" + $('form[name="__Form"]').serialize() , null , "html");
+                $('form#loginForm').submit();
         }
     });
 });

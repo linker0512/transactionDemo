@@ -24,7 +24,7 @@
 
 <body>
     <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-        <th:block th:include="nav ::nav "></th:block>
+        <th:block th:include="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
         <main class="mdl-layout__content"></main>
     </div>
 </body>

@@ -1,4 +1,4 @@
-package entity;
+package zj.entity;
 
 import java.util.ArrayList;
 
