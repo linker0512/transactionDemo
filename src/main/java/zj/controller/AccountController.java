@@ -2,15 +2,20 @@ package zj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zj.entity.SpringResult;
+import zj.entity.data;
+import zj.entity.sendData;
 import zj.entity.user;
 import zj.service.ServiceInterface.userService;
+import static zj.controller.CONSTANT.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.ArrayList;
+
 
 /**
  * Created by zj on 2017-3-12.
@@ -19,13 +24,12 @@ import java.util.HashMap;
 public class AccountController {
 
 
+//    private static final String = ;
+
     @Autowired
     private userService userservice;
 
-    @RequestMapping("/login")
-    public String tologin(){
-        return "login";
-    }
+
 
     @RequestMapping("/login.do")
     public String login(@RequestParam String account , @RequestParam String password ,
@@ -35,10 +39,16 @@ public class AccountController {
         if(result) {
             userservice.addSession(httpServletRequest, _user);
             System.out.println("login ok");
-            return "redirect:/home";
+            return REDIRECT + TEMPLATE_HOME;
         }
         else
-            return "login";
+            return TEMPLATE_LOGIN;
+    }
+
+    @RequestMapping("/logout")
+    public String logoutPage (HttpServletRequest httpServletRequest) {
+            userservice.removeSession(httpServletRequest);
+        return REDIRECT + TEMPLATE_LOGIN;
     }
 
 
@@ -57,6 +67,55 @@ public class AccountController {
             return result;
         }
     }
+
+    @RequestMapping("/checkData.do")
+    public String checkData(@RequestParam int index ,Model model){
+        sendData data = new sendData("1","2","3","4","5","6");
+        model.addAttribute("data",data);
+        System.out.println("123");
+        System.out.println(index);
+        return TEMPLATES_DATAMANAGEMENT_CHECKDATA;
+    }
+    @RequestMapping("/sendData.do")
+    public String sendData(@RequestParam sendData index ,Model model){
+        ArrayList<data> datas = new ArrayList<>();
+        for(int i = 0 ; i < 10 ; i++)
+            datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
+        data a = new data(1,String.valueOf(100),String.valueOf(1000));
+        model.addAttribute("DATAS",datas);
+        model.addAttribute("data",a);
+        System.out.println(index);
+        return TEMPLATES_DATAMANAGEMENT_PAGE;
+    }
+    @RequestMapping("/editData.do")
+    public String editData(@RequestParam sendData index ,Model model){
+        ArrayList<data> datas = new ArrayList<>();
+        for(int i = 0 ; i < 10 ; i++)
+            datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
+        data a = new data(1,String.valueOf(100),String.valueOf(1000));
+        model.addAttribute("DATAS",datas);
+        model.addAttribute("data",a);
+        System.out.println(index);
+        return TEMPLATES_DATAMANAGEMENT_PAGE;
+    }
+
+//    @RequestMapping("/dataManagePage/addData")
+//    public String addData(Model model){
+//        return null;
+//    }
+//
+//    @RequestMapping("/dataManagePage/sendData")
+//    public String sendData(Model model){
+////        ArrayList<data> datas = new ArrayList<>();
+////        for(int i = 0 ; i < 10 ; i++)
+////            datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
+//        data a = new data(1,String.valueOf(100),String.valueOf(1000));
+//        model.addAttribute("flg","true");
+//        model.addAttribute("data",a);
+//        return REDIRECT + "/dataManagePage";
+//    }
+
+
 
     @RequestMapping("/test")
     @ResponseBody

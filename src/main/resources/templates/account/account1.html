@@ -4,15 +4,15 @@
 <head th:include="home :: head">
 </head>
 <body >
-<!--<div class="demo-layout-transparent mdl-layout mdl-js-layout">-->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
-            mdl-layout--fixed-header">
-    <th:block th:replace="th_block :: nav (home='false',text='',account=${account})"></th:block>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+<!--<div class="mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-drawer-->
+            <!--mdl-layout&#45;&#45;fixed-header">-->
+    <th:block th:replace="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
         <main class="mdl-layout__content" style="align-items: center;justify-content: center;">
             <style>
             .demo-layout-transparent .mdl-layout__header,
             .demo-layout-transparent .mdl-layout__drawer-button{
-             color: #30282c;
+             color: #404b56;
             }
 
             .demo-card-wide.mdl-card {

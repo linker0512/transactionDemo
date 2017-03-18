@@ -209,16 +209,6 @@ public class Cmd {
         WriteCmdNoReturn("loadScript(\"src/main/resources/getblock.js\")");
     }
 
-    public void _GetAccounts() {
-        state = State.GETACCOUNTS;
-        accounts_count = 0;
-        accounts = new ArrayList<Account>();
-        for(String s : WriteCmd("getAccounts()").split("\n")){
-            state = State.GETBALANCE;
-            accounts.add(new Account(accounts_count,s,WriteCmd("getBalance("+( accounts_count++)+")")));
-        }
-    }
-
     public ArrayList<Account[]> GetAccountsInto3(){
         ArrayList<Account[]> re = new ArrayList<Account[]>();
 //        int index = 0;
@@ -240,6 +230,16 @@ public class Cmd {
             re.add(a);
         }
         return re;
+    }
+
+    public void _GetAccounts() {
+        state = State.GETACCOUNTS;
+        accounts_count = 0;
+        accounts = new ArrayList<Account>();
+        for(String s : WriteCmd("getAccounts()").split("\n")){
+            state = State.GETBALANCE;
+            accounts.add(new Account(accounts_count,s,WriteCmd("getBalance("+( accounts_count++)+")")));
+        }
     }
 
     public String SendTransactionByAccount(int sendIndex , int receiveIndex , int amount , String data , String identification){

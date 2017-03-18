@@ -41,6 +41,12 @@ public class userServiceImpl implements userService {
     }
 
     @Override
+    public void removeSession(HttpServletRequest httpServletRequest) {
+        HttpSession httpSession = httpServletRequest.getSession(true);
+        httpSession.removeAttribute("current_user");
+    }
+
+    @Override
 	public void logout() {
 
 	}

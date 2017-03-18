@@ -119,20 +119,28 @@ public class main_ {
 //        System.out.println("123123");
         //cmd.WriteCmd("getBalance("+0+")");
         //cmd.GetTransactionDataByIdentification("^^^^^^^^");
-        HashMap<Integer,Integer> map = new HashMap<>();
-        map.put(1,1);
-        map.put(2,34);
-        map.put(3,-1);
-        List<Integer> types = map
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<Integer, Integer>comparingByKey().reversed())
-                .map(Map.Entry::getKey)
-                .limit(2)
-                .collect(Collectors.toList());
-//        map.entrySet().stream()
-//                .sorted(Map.Entry.<Integer, Integer>comparingByValue())
-//                .forEachOrdered(x -> result.add( x.getValue()));
-        System.out.println(4&1);
+        System.out.println(Convert.ConvertHtml("<div class=\"demo-card-wide mdl-card mdl-shadow--2dp\" id=\"showEdit\">\n" +
+                "    <div class=\"mdl-card__title\">\n" +
+                "        <h2 class=\"mdl-card__title-text\">Data Management</h2>\n" +
+                "    </div>\n" +
+                "    <div class=\"mdl-card__supporting-text\">\n" +
+                "        <h5>You can check and edit your data or release it to world.</h5>\n" +
+                "    </div>\n" +
+                "    <div class=\"mdl-card__actions mdl-card--border\" id=\"mdl_card_action\">\n" +
+                "        <div class=\"helper\">\n" +
+                "            <div class=\"mdl-textfield mdl-js-textfield mdl-textfield--floating-label\" >\n" +
+                "                <input class=\"mdl-textfield__input\" type=\"text\" id=\"mdl_password\" required=\"required\"/>\n" +
+                "                <label class=\"mdl-textfield__label\" for=\"mdl_password\">Somethings</label>\n" +
+                "            </div>\n" +
+                "            <div class=\"mdl-textfield mdl-js-textfield mdl-textfield--floating-label\" >\n" +
+                "                <input class=\"mdl-textfield__input\" type=\"text\" id=\"mdl_password_repeat\" required=\"required\"/>\n" +
+                "                <label class=\"mdl-textfield__label\" for=\"mdl_password_repeat\" id=\"mdl_password_repeat_lable\">Somethings</label>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <button id=\"getAccounts\" class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\">\n" +
+                "            Check Data\n" +
+                "        </button>\n" +
+                "    </div>\n" +
+               "</div>"));
     }
 }

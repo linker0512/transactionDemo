@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,5 +60,14 @@ public class Convert {
     }
     public static String ConvertStringTohex(String s){
         return "0x"+s.chars().mapToObj(n -> Integer.toHexString(n)).collect(Collectors.joining());
+    }
+
+    public static String ConvertHtml(String s){
+        String[] re = s.split("\n");
+        StringBuilder sb = new StringBuilder();
+        for(String str : re)
+            sb.append(("'" + str.trim() + "'+\n"));
+        sb.delete(sb.length()-2,sb.length()-1);
+        return sb.toString();
     }
 }

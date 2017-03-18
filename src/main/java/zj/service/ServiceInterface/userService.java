@@ -12,6 +12,7 @@ public interface userService {
 	user getUser(int id);
 	boolean login(user _user);
 	void addSession(HttpServletRequest httpServletRequest, user _user);
+	void removeSession(HttpServletRequest httpServletRequest);
 	void logout();
 	boolean insertUser(user _user);
 	void update(user _user, int id, String name);

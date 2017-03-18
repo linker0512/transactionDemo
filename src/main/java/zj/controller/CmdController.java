@@ -14,36 +14,36 @@ import zj.tool.Cmd;
 
 import javax.management.modelmbean.ModelMBeanOperationInfo;
 
+import static zj.controller.CONSTANT.*;
+
 /**
  * Created by zj on 2017-2-1.
  */
 @Controller
 @ComponentScan("zj/tool")
 public class CmdController {
-    @Autowired
-    private userServiceImpl userservice;
+
+
     @Autowired
     Cmd mycmd;
-
-    @RequestMapping("/home")
-    public String Init(Model model){
-        model.addAttribute("account",userservice.currentUserName);
-        return "home";
-    }
-
-    @RequestMapping("/getAccountsPage")
-    public String getAccountsPage(Model model){
-        model.addAttribute("TYPE","INIT");
-        model.addAttribute("account",userservice.currentUserName);
-        return "getAccount";
-    }
-
 
     @RequestMapping("/getAccounts")
     public String getAccounts(Model model){
         model.addAttribute("ACCOUNTS",mycmd.getAccounts());
         model.addAttribute("TYPE","OWN");
-        return "getAccount :: result";
+        return TEMPLATES_ACCOUNT_GET_ACCOUNT + RESULT;
+    }
+
+    @RequestMapping("/createAccount")
+    @ResponseBody
+    public String CreatAccount1(@RequestParam String password_input){
+        return "Address\n  "+mycmd.CreateAccuont(password_input);
+    }
+
+    @RequestMapping("/sendTransaction")
+    @ResponseBody
+    public String sendTransactions(){
+        return "send success";
     }
 
     @RequestMapping("/transaction")
@@ -90,14 +90,5 @@ public class CmdController {
         return "transaction :: search_result";
     }
 
-    @RequestMapping("/createAccount")
-    @ResponseBody
-    public String CreatAccount1(@RequestParam String password_input){
-        return "Address\n  "+mycmd.CreateAccuont(password_input);
-    }
-    @RequestMapping("/createAccountPage")
-    public String CreatAccountpage(Model model){
-        model.addAttribute("account",userservice.currentUserName);
-        return "account1";
-    }
+
 }

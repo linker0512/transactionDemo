@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="home :: head">
+</head>
+<body >
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <!--<div class="mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-drawer-->
+    <!--mdl-layout&#45;&#45;fixed-header">-->
+    <th:block th:replace="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
+    <main class="mdl-layout__content" style="align-items: center;justify-content: center;">
+        <style>
+
+            .demo-card-wide > .mdl-card__title {
+              color: #fff;
+              height: 600px;
+              background: url('../assets/dataManagement2_1.jpg') center / cover;
+            }
+            .demo-card-wide > .mdl-card__menu {
+              color: #fff;
+            }
+            .mdl-card__title-text{
+            color:#125860;
+
+            }
+            .mdl-grid{
+            padding-right:50px;
+             style="text-align:centre";
+            }
+        </style>
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:800px; margin-left: auto; margin-right: auto;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="color:#125860;">Data Management</h2>
+            </div>
+            <div class="mdl-card__supporting-text" style="width:770px;">
+                You can check and edit your data or release it to world.
+                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/dataManagePage/addData" style="float:right">
+                    <i class="material-icons">add</i>
+                </a>
+            </div>
+            <div class="mdl-card__actions mdl-card--border" style="padding:0;">
+                <table class="mdl-data-table  mdl-js-data-table mdl-shadow--2dp" style=" width: 800px; margin-left: auto; margin-right: auto;">
+                    <thead>
+                        <tr>
+                            <th  style="text-align:center;">Index</th>
+                            <th  style="text-align:center;">Briefing</th>
+                            <th  style="text-align:center;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                                <tr th:each = "data : ${DATAS}">
+                                    <td width="10%" th:text = "${data.index}"></td>
+                                    <td width="80%" th:text = "${data.briefing}"></td>
+                                    <td width="10%" th:text = "${data.date}"></td>
+
+                                    <td width="5%">
+                                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect check" style="color:#7cff72;" >
+                                            <i class="material-icons">check</i>
+                                        </button>
+                                    </td>
+                                    <td width="5%">
+                                        <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect delete" style="color:red;" >
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br /><br />
+    </main>
+    <style>
+            .demo-layout-transparent {
+                  background: url('../assets/getAccounts.jpg') center / cover;
+                  background-repeat: repeat;
+                }
+                body{
+                    background: url('../assets/getAccounts.jpg')  center / cover;
+                    background-repeat: repeat;
+                }
+        </style>
+    <!--<th:block th:replace="th_block::footer"></th:block>-->
+</div>
+
+<dialog class="mdl-dialog" id="editDialog" style="width:820px; padding: 0;">
+    <div class="mdl-dialog__content" style="padding: 0;">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style= "width:820px; margin-left: auto; margin-right: auto;
+             z-index:10;" >
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Edit data</h2>
+
+            </div>
+            <div class="mdl-card__supporting-text">
+                Edit your data
+            </div>
+
+            <div class="mdl-card__actions mdl-card--border" style="text-align:right;">
+                <form action="/editData">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="text" id="mdl_password" required="required"/>
+                                <label class="mdl-textfield__label" for="mdl_password">Somethings</label>
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="text" id="mdl_password_repeat" required="required"/>
+                                <label class="mdl-textfield__label" for="mdl_password_repeat" id="mdl_password_repeat_lable">Somethings</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="text" id="something" required="required"/>
+                                <label class="mdl-textfield__label" for="something">Somethings</label>
+                            </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                <input class="mdl-textfield__input" type="text" id="something1" required="required"/>
+                                <label class="mdl-textfield__label" for="something1">Somethings</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield" style="width:670px;margin-left:65px;margin-right:65px;">
+                        <textarea class="mdl-textfield__input" type="text" rows= "1" id="something2" required="required"></textarea>
+                        <label class="mdl-textfield__label" for="something2">Somethings</label>
+                    </div>
+                </form>
+                <div class="mdl-dialog__actions" style="margin-right:30px;">
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                            style="color:#00a5ff;margin-right:20px;">
+                        <i class="material-icons">done</i>
+                    </button>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--icon  mdl-js-ripple-effect close"
+                            style="color:#ff0000;margin-right:10px;" id="sendColse">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+
+<dialog class="mdl-dialog" id="sendDialog" style="width:820px; padding: 0;">
+    <div class="mdl-dialog__content" style="padding: 0;">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style= "width:820px; margin-left: auto; margin-right: auto;
+             z-index:10;" >
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Edit data</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                Send your data
+            </div>
+            <div class="mdl-card__actions mdl-card--border" >
+                <div id="resultBox" style="position:relative;top:0px;">
+
+                </div>
+            </div>
+            <div class="mdl-dialog__actions" style="margin-right:30px;">
+                <button type="button" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="sendTransaction"
+                        style="color:#00a5ff;margin-right:20px;">
+                    <i class="material-icons">send</i>
+                </button>
+                <button type="button" class="mdl-button mdl-js-button mdl-button--icon  mdl-js-ripple-effect close"
+                        style="color:#ff0000;margin-right:10px;">
+                    <i class="material-icons">clear</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+<script type="text/javascript">
+
+$(function(){
+
+    function getLikeForm(arg){
+        var form = document.createElement("form");
+        form.set
+        form.setAttribute("method", "get");
+        form.setAttribute("action", "/checkData.do");
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "index");
+        hiddenField.setAttribute("value", arg);
+        form.appendChild(hiddenField);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    var forms = $('.checkForm');
+    $('.edit').each(function(){
+        $(this).click(function(event){
+            editDialog.showModal();
+        });
+    });
+    var editDialog = document.querySelector('dialog#editDialog');
+
+    if (! editDialog.showModal) {
+      editDialog.registerDialog(dialog);
+    }
+
+    editDialog.querySelector('.close').addEventListener('click', function() {
+      editDialog.close();
+    });
+
+    $('.check').click(function(){
+        var index = $(this).index('.check');
+        getLikeForm(index+1);
+    });
+
+    var sendDialog = document.querySelector('dialog#sendDialog');
+
+    if (! editDialog.showModal) {
+      sendDialog.registerDialog(dialog);
+    }
+
+    sendDialog.querySelector('.close').addEventListener('click', function() {
+      sendDialog.close();
+    });
+
+    $('#sendTransaction').click(function(event) {
+　　     event.preventDefault();
+        $('#sendDataForm').submit();
+    });
+});
+</script>
+</html>
+

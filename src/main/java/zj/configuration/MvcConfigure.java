@@ -28,7 +28,7 @@ public class MvcConfigure extends WebMvcConfigurerAdapter{
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/register.do");
     }
-
+//
 //    @Bean
 //    public CacheManager cacheManager() {
 //        SimpleCacheManager cacheManager = new SimpleCacheManager();
