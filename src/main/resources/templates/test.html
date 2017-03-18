@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<button class="image_or_video">clicky</button>
+<button class="image_or_video">clicky</button>
+<button class="image_or_video">clicky</button>
+<button class="image_or_video">clicky</button>
+<button class="image_or_video">clicky</button>
+<button class="image_or_video">clicky</button>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js">
+</script>
+<script>
+$('.image_or_video').click(function(){
+    var clicked_radio = $(this).index('.image_or_video');
+    alert(clicked_radio);
+});
+</script>
+</body>
+</html>

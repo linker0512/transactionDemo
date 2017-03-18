@@ -1,5 +1,6 @@
 function getAccounts(){
-    $("#resultAccounts").load('/accounts');
+    console.log(222);
+    $("#getAccounts").load('/accounts');
 }
 
 function unlockAccount(){
@@ -18,8 +19,9 @@ function getTransaction(){
 }
 
 function createAccount(){
-    new Url('/createAccount',$("#resultCreateAccount"))
-    .start($('#createAccountPasswd'));
+    console.log(111);
+    new Url('/createAccount',$("#getAccounts"))
+    .start($('#password_input'));
 }
 
 function Url(u,id){
@@ -41,6 +43,34 @@ function Url(u,id){
             }
     };
     return url;
+}
+
+
+function Send(sendId , renderBox){
+    var send = new Object();
+    send.id = sendId;
+    send.renderbox = renderBox;
+    send.start = function(){
+        sendId.click(function(event) {
+         　　event.preventDefault();
+//             $('#accountLi').addClass("active");
+         　　var paramUrl = send.id.attr("href");
+             console.log(paramUrl);
+         　　$.ajax({
+         　　　　type : "GET",
+         　　　　url : paramUrl,
+         　　　　dataType : "html",
+         　　　　success : function(data, status, xhr) {
+         　　　　　　 send.renderbox.html(data);
+                     console.log('success');
+                         console.log(data);
+         　　　　},
+         　　　　error : function(XMLHttpRequest, status, errorThrown) {
+         　　　　}
+         　　});
+         });
+    }
+    return send;
 }
 
 

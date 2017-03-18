@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="home :: head">
+</head>
+<body >
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+<!--<div class="mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-drawer-->
+            <!--mdl-layout&#45;&#45;fixed-header">-->
+    <th:block th:replace="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
+        <main class="mdl-layout__content" style="align-items: center;justify-content: center;">
+            <style>
+            .demo-layout-transparent .mdl-layout__header,
+            .demo-layout-transparent .mdl-layout__drawer-button{
+             color: #404b56;
+            }
+
+            .demo-card-wide.mdl-card {
+              width: 641px;
+            }
+            .demo-card-wide > .mdl-card__title {
+              color: #fff;
+              height: 451px;
+              background: url('../assets/create.jpg') center / cover;
+            }
+            .demo-card-wide > .mdl-card__menu {
+              color: #fff;
+            }
+             </style>
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:641px; margin-left: auto; margin-right: auto;">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text" style="color:#125860;">Create Account</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    For create account, just input password and
+                    wait for system retuen your address.
+                    CAUTIONS: DO NOT FORGET YOUR PASSWORD!
+                </div>
+                <div class="mdl-card__actions mdl-card--border" style="text-align:right">
+                    <form  >
+                        <fieldset>
+                            <div style="width: 300px; display: block; margin-left: auto; margin-right: auto;">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                    <input class="mdl-textfield__input" type="password" id="mdl_password" required="required"/>
+                                    <label class="mdl-textfield__label" for="mdl_password">Password</label>
+                                </div>
+                                <br />
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                    <input class="mdl-textfield__input" type="password" id="mdl_password_repeat" required="required"/>
+                                    <label class="mdl-textfield__label" for="mdl_password_repeat" id="mdl_password_repeat_lable">Repeat password</label>
+                                </div>
+                            </div>
+                            <button id="register" type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                Create One
+                            </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div id="passwordError" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button type="button" class="mdl-snackbar__action"></button>
+            </div>
+        </main>
+    <style>
+    .demo-layout-transparent {
+          background: url('../assets/1.png') center / cover;
+          background-repeat: repeat;
+        }
+        body{
+            background: url('../assets/1.png')  center / cover;
+            background-repeat: repeat;
+        }
+    </style>
+</div>
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+<script type="text/javascript">
+    $('#register').click(function(event) {
+　　     event.preventDefault();
+        var password = document.getElementById("mdl_password");
+        var confirm_password = document.getElementById("mdl_password_repeat");
+        var notification = document.querySelector('.mdl-js-snackbar');
+
+        if(password.value != confirm_password.value ||password.value == "" ||confirm_password.value== "") {
+        var msg;
+        if(password.value != confirm_password.value)
+            msg = "Passwords Don't Match";
+        else
+            msg = "Password Empty";
+        var data = {
+          message: msg,
+          actionHandler: function(event) {notification.MaterialSnackbar.cleanup_()},
+          actionText: 'X',
+          timeout: 2000
+        };
+        notification.MaterialSnackbar.showSnackbar(data);
+        }else{
+            console.log('success');
+            var paramUrl = "/createAccount"+ '?'+'password_input='+$('#mdl_password').val();
+            console.log(paramUrl);
+            $.ajax({
+        　　　　type : "GET",
+        　　　　url : paramUrl,
+        　　　　dataType : "html",
+        　　　　success : function(data, status, xhr) {
+                var result = {
+                  message: data,
+                  actionHandler: function(event) {notification.MaterialSnackbar.cleanup_()},
+                  actionText: 'X',
+                  timeout: 1000000
+                };
+        　　　　　
+                notification.MaterialSnackbar.showSnackbar(result);
+                console.log('success');
+                console.log(data);
+                console.log(xhr);
+        　　　　},
+        　　　　error : function(XMLHttpRequest, status, errorThrown) {
+        　　　　}
+        　　});
+        }
+});
+</script>
+</html>
+

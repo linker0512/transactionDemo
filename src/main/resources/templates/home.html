@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:fragment="head">
+        <link href="../static/css/material.min.css"
+              th:href="@{css/material.min.css}"
+              rel="stylesheet"
+        />
+        <link href="../static/css/Mymaterial.css"
+              th:href="@{css/Mymaterial.css}"
+              rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
+        />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
+        />
+        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+        <script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+    </head>
+
+<body>
+    <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+        <th:block th:include="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
+        <main class="mdl-layout__content"></main>
+    </div>
+</body>
+
+</html>
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="home :: head">
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout">
+    <main class="mdl-layout__content" >
+        <style>
+            .demo-layout-transparent .mdl-layout__header,
+            .demo-layout-transparent .mdl-layout__drawer-button{
+             color: #30282c;
+            }
+
+            .demo-card-wide.mdl-card {
+              width: 450px;
+            }
+            .demo-card-wide > .mdl-card__title {
+              color: #fff;
+              height: 250px;
+              background: url('../assets/ethereum-logo.png') center / cover;
+            }
+            .demo-card-wide > .mdl-card__menu {
+              color: #fff;
+            }
+            body{
+                background: url('../assets/login.jpg')  center / cover;
+                background-repeat: repeat;
+            }
+         </style>
+
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:450px; margin-left: auto; margin-right: auto; margin-top:75px;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="color:#125860;"></h2>
+            </div>
+            <div class="mdl-card__supporting-text"  >
+                Type your account and password.
+                <br />
+                <div style="float: right;margin-right:20px;">
+                    <label for="login_register" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                        <input type="checkbox" id="login_register" name="flg" class="mdl-switch__input"/>
+                        <span  class="mdl-switch__label">Login/Register</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border" style="text-align:right">
+                <form name="__Form"  >
+                    <div name ="form" style="width: 300px; display: block; margin-left: auto; margin-right: auto;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                            <input class="mdl-textfield__input" type="text" id="account" name="account" required="required"/>
+                            <label class="mdl-textfield__label" for="account">Account</label>
+                        </div>
+                        <br />
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                            <input class="mdl-textfield__input" type="password" id="password" name="password" required="required"/>
+                            <label class="mdl-textfield__label" for="password" id="mdl_password">Password</label>
+                        </div>
+                        <br />
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="register_addon"  >
+                            <input class="mdl-textfield__input" type="password" id="password_repeat" required="required"/>
+                            <label class="mdl-textfield__label" for="password_repeat" id="mdl_password_repeat_lable">Password Repeat</label>
+                        </div>
+                        <!--<input type="hidden" name="flg" id="sameAsCheckbox" value="false" />-->
+                    </div>
+                    <button id="login" type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div id="passwordError" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text" style="text-align: center"></div>
+            <button type="button" class="mdl-snackbar__action"></button>
+        </div>
+    </main>
+</div>
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>
+<script type="text/javascript">
+
+$(function(){
+    $('#register_addon').hide();
+
+    $('#login_register').click(function() {
+        console.log($('#login_register').is(':checked'));
+        isRegister = $('#login_register').is(':checked');
+        //$('#sameAsCheckbox').val($('#login_register').is(':checked'));
+        if(isRegister){
+            $('#register_addon').show();
+            $("#login").text("Register");
+        }else{
+            $('#register_addon').hide();
+            $("#login").text("Login");
+        }
+    });
+
+    function snakeData(msg,timeout){
+
+         var data = {
+            message: msg,
+            actionHandler: function(event) {document.querySelector('.mdl-js-snackbar').MaterialSnackbar.cleanup_()},
+            actionText: 'X',
+            timeout: timeout
+        };
+        return data;
+    }
+    function sendAjax(url,func,type){
+        $.ajax({
+    　　　　type : "GET",
+    　　　　url : url,
+    　　　　dataType : type,
+    　　　　success : function(data,status,xhr) {
+            // console.log(data.result);
+            // console.log(xhr);
+                if(func != null){
+                    //var dataJson = JSON.parse(data);
+                    func(data.result.resultText);
+                    if(data.flg)
+                        var t=setTimeout("window.location.href = \"localhost\";",3000);
+                }
+    　　　　},
+    　　　　error : function(XMLHttpRequest, status, errorThrown) {
+                console.log("error");
+                console.log(XMLHttpRequest);
+                console.log(status);
+                console.log(errorThrown);
+    　　　　}
+　　    });
+
+    }
+    $('#login').click(function(event) {
+　　     event.preventDefault();
+        var account = document.getElementById("account");
+        var password = document.getElementById("password");
+        var password_repeat = document.getElementById("password_repeat");
+        var notification = document.querySelector('.mdl-js-snackbar');
+        if($('#login_register').is(':checked')){
+            if(password_repeat.value == "" || password.value == "")
+                notification.MaterialSnackbar.showSnackbar(snakeData("Repeat Passwords Empty",2000));
+            else if(password_repeat.value != password.value)
+                notification.MaterialSnackbar.showSnackbar(snakeData("Passwords don not match!",2000));
+            else if(account.value == "")
+                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",2000));
+            else
+                sendAjax("/register.do?" + $('form[name="__Form"]').serialize(),
+                function(data){
+                    notification.MaterialSnackbar.showSnackbar(snakeData(data,200000));
+                },
+                "json");
+        }else{
+            if(account.value == "" )
+                notification.MaterialSnackbar.showSnackbar(snakeData("Account Empty",2000));
+            else if( password.value == "")
+                notification.MaterialSnackbar.showSnackbar(snakeData("Password Empty",2000));
+            else
+                sendAjax("/login.do?" + $('form[name="__Form"]').serialize() , null , "html");
+        }
+    });
+});
+</script>
+</html>

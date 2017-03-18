@@ -1,11 +1,22 @@
 body {
+  /*
   padding-top: 30px;
   padding-bottom: 30px;
   padding-right: 30px;
   padding-left: 30px;
-  background-color: lightblue;
+  */
+  background-color: #cccccc;
 }
 
+<<<<<<< HEAD
+=======
+div{
+margin:0px;
+border:0;
+padding:0;
+}
+
+>>>>>>> new_ui
 .center {
     margin: auto;
     width: 65%;
@@ -27,8 +38,114 @@ input {
     padding: 3px;
     margin: 0px;
 }
+<<<<<<< HEAD
 .alert {
    width:40%;
    margin-left: 30%;
     text-align:center
 }
+=======
+
+.container-header{
+
+  padding-right: 300px;
+  padding-left: 300px;
+}
+
+.account-left{
+    padding-top: 5px;
+    float: left;
+    width: 65px;
+}
+.account-right{
+    padding-bottom: 5px;
+     padding-top: 0px;
+    margin-left: 50px;
+}
+
+
+.account-parent{
+    padding-right: 100px;
+    padding-left: 100px;
+    margin-left: 0px;
+}
+.account-element{
+    float: left;
+    width: 33%;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+        overflow:hidden;
+}
+.account-address{
+    width = 20px
+    text-overflow: ellipsis;
+    overflow:hidden;
+
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+}
+.vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    width:inherit;
+    height:inherit;
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+.alert {
+
+  display:inline-block;
+}
+
+.transaction-container {
+    margin: auto;
+    width: 80%;
+    background-color: #66ccff;
+    height:230px;
+    padding: 10px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+}
+
+.search-container{
+    margin: auto;
+    width: 80%;
+    background-color: #66ccff;
+    height:100px;
+    padding: 10px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+
+   width:60%;
+   margin-left: 20%;
+    text-align:center
+
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+
+>>>>>>> new_ui
