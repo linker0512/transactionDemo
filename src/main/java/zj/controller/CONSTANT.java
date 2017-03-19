@@ -10,7 +10,7 @@ public class CONSTANT {
 
     public static final String TEMPLATES_DATAMANAGEMENT_PAGE= "dataManage/dataManagement";
     public static final String TEMPLATES_DATAMANAGEMENT_CHECKDATA = "dataManage/checkData";
-    public static final String TEMPLATES_DATAMANAGEMENT_SENDDATA = "dataManage/sendData";
+    public static final String TEMPLATES_DATAMANAGEMENT_CREATEDATA = "dataManage/createData";
     public static final String TEMPLATES_DATAMANAGEMENT_EDITDATA = "dataManage/editData";
 
 

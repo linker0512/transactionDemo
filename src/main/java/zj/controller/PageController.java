@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import zj.entity.data;
+import zj.entity.sendData;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,16 @@ public class PageController {
         model.addAttribute("data",a);
         return TEMPLATES_DATAMANAGEMENT_PAGE;
     }
-
+    @RequestMapping("/checkDataPage")
+    public String checkDataPage(Model model, @RequestParam int index){
+        model.addAttribute("index",index);
+        model.addAttribute("data",new sendData("1","2","3","4","5","6"));
+        return TEMPLATES_DATAMANAGEMENT_CHECKDATA;
+    }
+    @RequestMapping("/createDataPage")
+    public String reatePage(Model model){
+        return TEMPLATES_DATAMANAGEMENT_CREATEDATA;
+    }
 //    @RequestMapping("/dataManagePage/sendData")
 //    public String sendDataPage(Model model , @RequestParam int id){
 //        return TEMPLATES_DATAMANAGEMENT_SENDDATA;

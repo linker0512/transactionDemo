@@ -3,6 +3,7 @@ package zj.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,41 +69,51 @@ public class AccountController {
         }
     }
 
-    @RequestMapping("/checkData.do")
-    public String checkData(@RequestParam int index ,Model model){
-        sendData data = new sendData("1","2","3","4","5","6");
-        model.addAttribute("data",data);
-        System.out.println("123");
-        System.out.println(index);
-        return TEMPLATES_DATAMANAGEMENT_CHECKDATA;
-    }
     @RequestMapping("/sendData.do")
-    public String sendData(@RequestParam sendData index ,Model model){
+    public String sendData(@RequestParam int index ,Model model){
         ArrayList<data> datas = new ArrayList<>();
         for(int i = 0 ; i < 10 ; i++)
             datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
         data a = new data(1,String.valueOf(100),String.valueOf(1000));
         model.addAttribute("DATAS",datas);
         model.addAttribute("data",a);
-        System.out.println(index);
+        System.out.println("send "+index);
         return TEMPLATES_DATAMANAGEMENT_PAGE;
     }
     @RequestMapping("/editData.do")
-    public String editData(@RequestParam sendData index ,Model model){
+    public String editData(@ModelAttribute sendData data , Model model){
         ArrayList<data> datas = new ArrayList<>();
         for(int i = 0 ; i < 10 ; i++)
             datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
         data a = new data(1,String.valueOf(100),String.valueOf(1000));
         model.addAttribute("DATAS",datas);
         model.addAttribute("data",a);
-        System.out.println(index);
+        System.out.println("edit " + data);
         return TEMPLATES_DATAMANAGEMENT_PAGE;
     }
 
-//    @RequestMapping("/dataManagePage/addData")
-//    public String addData(Model model){
-//        return null;
-//    }
+    @RequestMapping("/createData.do")
+    public String createData(@ModelAttribute sendData data , Model model){
+        ArrayList<data> datas = new ArrayList<>();
+        for(int i = 0 ; i < 10 ; i++)
+            datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
+        data a = new data(1,String.valueOf(100),String.valueOf(1000));
+        model.addAttribute("DATAS",datas);
+        model.addAttribute("data",a);
+        System.out.println("create " + data);
+        return TEMPLATES_DATAMANAGEMENT_PAGE;
+    }
+    @RequestMapping("/deleteData.do")
+    public String deleteData(Model model , @RequestParam int index){
+        ArrayList<data> datas = new ArrayList<>();
+        for(int i = 0 ; i < 10 ; i++)
+            datas.add(new data(i,String.valueOf(i*100),String.valueOf(i*1000)));
+        data a = new data(1,String.valueOf(100),String.valueOf(1000));
+        model.addAttribute("DATAS",datas);
+        model.addAttribute("data",a);
+        System.out.println("delete " + index);
+        return TEMPLATES_DATAMANAGEMENT_PAGE;
+    }
 //
 //    @RequestMapping("/dataManagePage/sendData")
 //    public String sendData(Model model){

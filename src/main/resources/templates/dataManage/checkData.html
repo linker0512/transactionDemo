@@ -1,30 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--<head th:include="home :: head">-->
-<!--</head>-->
+
 <head th:include="home :: head">
 </head>
-<!--<head >-->
-    <!--<link href="../static/css/material.min.css"-->
-          <!--th:href="@{css/material.min.css}"-->
-          <!--rel="stylesheet"-->
-    <!--/>-->
-    <!--<link href="../static/css/Mymaterial.css"-->
-          <!--th:href="@{css/Mymaterial.css}"-->
-          <!--rel="stylesheet"-->
-    <!--/>-->
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
-          <!--th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"-->
-    <!--/>-->
 
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"-->
-          <!--th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"-->
-    <!--/>-->
-    <!--<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>-->
-
-    <!--<script src="../static/js/material.min.js" th:src="@{js/material.min.js}"></script>-->
-<!--</head>-->
 <body>
     <div class="demo-layout-transparent mdl-layout mdl-js-layout">
         <!--<div class="mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-drawer-->
@@ -67,7 +47,10 @@
                     </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border" style="padding:0;">
-                    <form action="/dataManagePage/editData.do" id="actionForm">
+                    <form action="/sendData.do" id="sendForm">
+                        <input th:value="${index}" type="hidden" name="index"/>
+                    </form>
+                    <form action="/editData.do" id="editForm">
                             <div style=" display: block; margin-left: auto; margin-right: auto;">
                                 <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label" >-->
                                     <!--<input class="mdl-textfield__input" type="text" id="something1" required="required"/>-->
@@ -232,9 +215,9 @@ $(function(){
         });
         if(flg){
             if($('#send_edit').is(':checked')){
-                $("#actionForm").attr('action',"/editData.do").submit();
+                $("#editForm").submit();
             }else{
-                $("#actionForm").attr('action',"/sendData.do").submit();
+                $("#sendForm").submit();
             }
         }else{
             var data = {

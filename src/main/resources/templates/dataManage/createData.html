@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:include="home :: head">
+</head>
+
+<body>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <!--<div class="mdl-layout mdl-js-layout mdl-layout&#45;&#45;fixed-drawer-->
+    <!--mdl-layout&#45;&#45;fixed-header">-->
+    <th:block th:replace="th_block :: nav (home='true',text='Menu',account=${account})"></th:block>
+    <main class="mdl-layout__content" style="align-items: center;justify-content: center;">
+        <style>
+
+                .demo-card-wide > .mdl-card__title {
+                  color: #fff;
+                  height: 600px;
+                  background: url('../../assets/dataManagement2_1.jpg') center / cover;
+                }
+                .demo-card-wide > .mdl-card__menu {
+                  color: #fff;
+                }
+                .mdl-card__title-text{
+                color:#125860;
+
+                }
+                .mdl-grid{
+
+                 style="text-align:centre";
+                }
+            </style>
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="width:1200px; margin-left: auto; margin-right: auto;">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text" style="color:#125860;">Edit Data</h2>
+            </div>
+            <div class="mdl-card__supporting-text" style="width:1170px;">
+                reate
+                <button id="doAction" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"  style="float:right">
+                    <i id="send" class="material-icons">done </i>
+                </button>
+
+            </div>
+            <div class="mdl-card__actions mdl-card--border" style="padding:0;">
+                <form action="/createData.do" id="createForm">
+                    <div style=" display: block; margin-left: auto; margin-right: auto;">
+                        <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label" >-->
+                        <!--<input class="mdl-textfield__input" type="text" id="something1" required="required"/>-->
+                        <!--<label class="mdl-textfield__label" for="something1">something1</label>-->
+                        <!--</div>-->
+                        <!--<br />-->
+                        <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label" >-->
+                        <!--<input class="mdl-textfield__input" type="password" id="mdl_password_repeat" required="required"/>-->
+                        <!--<label class="mdl-textfield__label" for="mdl_password_repeat" id="mdl_password_repeat_lable">Repeat password</label>-->
+                        <!--</div>-->
+
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input class="mdl-textfield__input" type="text" id="sth6" name="s1" required="required" />
+                                            <label class="mdl-textfield__label" for="sth6">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input class="mdl-textfield__input" type="text" id="sth5" name="s2" required="required" />
+                                            <label class="mdl-textfield__label" for="sth5">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input class="mdl-textfield__input" type="text" id="sth4" name="s3" required="required"  />
+                                            <label class="mdl-textfield__label" for="sth4">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--5-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input class="mdl-textfield__input" type="text" id="sth3" name="s4" required="required"  />
+                                            <label class="mdl-textfield__label" for="sth3">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--4-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input   class="mdl-textfield__input" type="text" id="sth2" name="s5" required="required" />
+                                            <label class="mdl-textfield__label" for="sth2">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="editData_card mdl-card mdl-shadow--2dp">
+                                    <div class="mdl-card__title mdl-card--expand">
+                                        <h2 class="mdl-card__title-text">Update</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Aenan convallis.
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border">
+                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" >
+                                            <input class="mdl-textfield__input" type="text" id="sth1" name="s6" required="required" />
+                                            <label class="mdl-textfield__label" for="sth1">something</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br /><br />
+    </main>
+    <div id="dataError" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text" style="text-align: center"></div>
+        <button type="button" class="mdl-snackbar__action"></button>
+    </div>
+</div>
+</body>
+<script>
+$(function(){
+
+
+    $('.editData_card').each(function(){
+        $(this).css("background",function(){
+            //console.log('#' +  Math.floor(Math.random() * 0x9B + 0x63).toString(16));
+            return '#' +  Math.floor(Math.random() *0x37 + 0xC8).toString(16) + Math.floor(Math.random() * 0x37 + 0xC8).toString(16) + Math.floor(Math.random() * 0x37 + 0xC8).toString(16);
+        });
+    });
+
+
+
+    $('#doAction').click(function(){
+        var flg = true;
+        $('.mdl-textfield__input').each(function(){
+            if($(this).val() == ""){
+                flg = false;
+                return false;
+            }
+            console.log($(this).val());
+        });
+        if(flg){
+                $("#createForm").submit();
+        }else{
+            var data = {
+                message: "Something is empty!",
+                actionHandler: function(event) {document.querySelector('.mdl-js-snackbar').MaterialSnackbar.cleanup_()},
+                actionText: 'X',
+                timeout: 3000
+            };
+             var notification = document.querySelector('.mdl-js-snackbar');
+             notification.MaterialSnackbar.showSnackbar(data);
+        }
+    });
+
+
+    $('.mdl-textfield__input').each(function(){
+        console.log($(this).val());
+    });
+});
+</script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function() {
+        var v = [[${data}]];
+        console.log(v);
+        for (var k in v){
+            if (v.hasOwnProperty(k)) {
+                //var id = #+k;
+                //$(id).val =
+            }
+        }
+    });
+
+    /*]]>*/
+</script>
+<style>
+    .demo-layout-transparent {
+          background: url('../../assets/getAccounts.jpg') center / cover;
+          background-repeat: repeat;
+        }
+        body{
+            background: url('../../assets/getAccounts.jpg')  center / cover;
+            background-repeat: repeat;
+        }
+    </style>
+<!--<th:block th:replace="th_block::footer"></th:block>-->
+</html>
