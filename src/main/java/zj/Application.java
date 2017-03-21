@@ -13,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableCaching
 public class Application extends WebMvcConfigurerAdapter{
     public static void main(String[] args) {
+        System.out.println("123");
+
         SpringApplication.run(Application.class, args);
     }
 }
